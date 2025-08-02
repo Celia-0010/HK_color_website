@@ -1348,7 +1348,7 @@ body {
   box-shadow: none;
   border: none;
   display: block;
-  margin-left: 0px !important;
+  margin-left: -30px !important;
 }
 .cluster-image-frame {
   width: 720px !important;
@@ -1398,7 +1398,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-left: 15px;
+  margin-left: -50px !important;
   border-radius: 10px;
 }
 .gsv-square-img {
