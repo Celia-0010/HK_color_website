@@ -1842,7 +1842,7 @@ body {
 .weather-title,
 .weather-subtitle {
     position: relative;
-    top: -60px;
+    top: -50px;
 }
 
 .weather-title {
