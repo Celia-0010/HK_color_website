@@ -1396,11 +1396,6 @@ return function(){for(var n=0,e=0;e<t;++e)n+=Math.random();return n}},um=functio
         }
 
         var color_link = function color_link(d){
-          // 如果目标节点是最右侧的节点（颜色节点），使用白色
-          if (d.target.x >= width - margin.right - 50) { // 检查是否是最右侧的节点
-            return "#ffffff";
-          }
-          // 否则使用默认的颜色逻辑
           if (d.group){
             return color(d.group.replace(/ .*/, ""));
           } else {
@@ -1518,14 +1513,6 @@ return function(){for(var n=0,e=0;e<t;++e)n+=Math.random();return n}},um=functio
             .text(function(d) { return d.name; })
             .style("font-size", "14px") // 调整字体大小
             .style("font-family", options.fontFamily ? options.fontFamily : "inherit")
-            .style("fill", function(d) {
-              // 如果是最右侧的节点（颜色节点），使用节点颜色
-              if (d.x >= width - margin.right - 50) {
-                return d.color || color_node(d);
-              }
-              // 否则使用默认的黑色
-              return "#000000";
-            })
             .filter(function(d) { return d.x < width / 2 || !options.sinksRight; })
             .attr("x", 6 + sankey.nodeWidth())
             .attr("text-anchor", "start");
