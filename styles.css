@@ -1479,7 +1479,7 @@ body {
 .sankey-split-container {
     display: flex;
     width: 100%;
-    max-width: 1350px;
+    max-width: 1300px;
     margin: 0 auto;
     gap: 0px;
     align-items: center;
@@ -1702,7 +1702,7 @@ body {
 .image-split-container {
     display: flex;
     width: 100%;
-    max-width: 1350px;
+    max-width: 1300px;
     margin: 0 auto;
     gap: 0px;
     align-items: center;
@@ -1787,7 +1787,7 @@ body {
 .weather-split-container {
     display: flex;
     width: 100%;
-    max-width: 1350px;
+    max-width: 1300px;
     margin: 0 auto;
     gap: 0px;
     align-items: center;
