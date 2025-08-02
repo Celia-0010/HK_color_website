@@ -10,8 +10,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- Mobile Restriction Message -->
+    <div id="mobile-restriction" class="mobile-restriction">
+        <div class="mobile-restriction-content">
+            <h2>This website is not available on mobile devices.</h2>
+            <p>Please access it from a desktop or laptop.</p>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden on mobile) -->
+    <div id="main-content" class="main-content">
+        <!-- Navigation -->
+        <nav class="navbar">
         <div class="nav-container">
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -490,6 +500,7 @@
 
 
 </script>
+    </div> <!-- End of main-content -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
