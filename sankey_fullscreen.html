@@ -63,7 +63,7 @@
 </head>
 <body>
     <div class="sankey-container">
-        <iframe src="sankey_plot_all.html" class="sankey-frame" title="Sankey Diagram"></iframe>
+        <iframe src="sankey_plot_all.html" class="sankey-frame" title="Sankey Diagram" sandbox="allow-scripts allow-same-origin"></iframe>
     </div>
     
     <script>
@@ -74,8 +74,14 @@
             resizeTimeout = setTimeout(function() {
                 const iframe = document.querySelector('.sankey-frame');
                 if (iframe && iframe.contentWindow) {
-                    // 触发iframe内部的resize事件
-                    iframe.contentWindow.dispatchEvent(new Event('resize'));
+                    try {
+                        // 添加安全检查
+                        if (iframe.contentWindow.location.origin === window.location.origin) {
+                            iframe.contentWindow.dispatchEvent(new Event('resize'));
+                        }
+                    } catch (e) {
+                        console.log('无法访问iframe内容，这是正常的跨域限制');
+                    }
                 }
             }, 100);
         });
@@ -86,12 +92,24 @@
             if (iframe) {
                 // 确保iframe完全加载后再触发resize
                 setTimeout(function() {
-                    iframe.contentWindow.dispatchEvent(new Event('resize'));
+                    try {
+                        if (iframe.contentWindow && iframe.contentWindow.location.origin === window.location.origin) {
+                            iframe.contentWindow.dispatchEvent(new Event('resize'));
+                        }
+                    } catch (e) {
+                        console.log('无法访问iframe内容，这是正常的跨域限制');
+                    }
                 }, 500);
                 
                 // 再次延迟触发以确保完全渲染
                 setTimeout(function() {
-                    iframe.contentWindow.dispatchEvent(new Event('resize'));
+                    try {
+                        if (iframe.contentWindow && iframe.contentWindow.location.origin === window.location.origin) {
+                            iframe.contentWindow.dispatchEvent(new Event('resize'));
+                        }
+                    } catch (e) {
+                        console.log('无法访问iframe内容，这是正常的跨域限制');
+                    }
                 }, 2000);
             }
         });
@@ -100,7 +118,11 @@
         window.addEventListener('message', function(event) {
             const iframe = document.querySelector('.sankey-frame');
             if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage(event.data, '*');
+                try {
+                    iframe.contentWindow.postMessage(event.data, '*');
+                } catch (e) {
+                    console.log('无法向iframe发送消息，这是正常的跨域限制');
+                }
             }
         });
     </script>
