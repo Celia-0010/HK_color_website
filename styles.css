@@ -1510,7 +1510,7 @@ body {
 
 /* Sankey Section Styles */
 .sankey-section {
-    padding: 0px 0 0 0;
+    padding: 4rem 0;
     background: white;
     display: flex;
     align-items: center;
@@ -1536,7 +1536,7 @@ body {
 
 .sankey-title,
 .sankey-description {
-    transform: translateY(-250px);
+    transform: translateY(-60px);
 }
 
 .sankey-title {
@@ -1567,27 +1567,27 @@ body {
     font-weight: 600;
     color: #000000;
     text-align: left;
-    margin-top: -15rem;
+    margin-top: 2rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .sankey-right-content {
     flex: 0 0 75%;
-    height: 800px;
+    height: 650px;
     position: relative;
     z-index: 0;
     margin-left: 22px;
 }
 
 .sankey-legend {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 .sankey-legend h4 {
     font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     color: var(--text-primary);
 }
 
