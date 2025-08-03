@@ -4,494 +4,293 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automated Urban Color Palette Generation Using Google Street View Imagery and Vision-Language Models</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'georgia': ['Georgia', 'Times New Roman', 'serif']
+                    },
+                    colors: {
+                        'primary': '#111',
+                        'secondary': '#555',
+                        'muted': '#aaa'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    <!-- Fixed Width Container -->
-    <div class="fixed-width-container">
-        <!-- Main Content -->
-        <div id="main-content" class="main-content">
-            <!-- Navigation -->
-            <nav class="navbar">
-            <div class="nav-container">
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#colors" class="nav-link">Colors</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#clusters" class="nav-link">Patterns</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#prediction" class="nav-link">Effectiveness</a>
-                    </li>
-                </ul>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+<body class="bg-white text-gray-900 font-inter">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-sm z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">About</a>
+                    <a href="#colors" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Colors</a>
+                    <a href="#clusters" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Patterns</a>
+                    <a href="#prediction" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Effectiveness</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="flex flex-col space-y-1">
+                        <span class="w-6 h-0.5 bg-gray-600 transition-all"></span>
+                        <span class="w-6 h-0.5 bg-gray-600 transition-all"></span>
+                        <span class="w-6 h-0.5 bg-gray-600 transition-all"></span>
+                    </button>
                 </div>
             </div>
-        </nav>
-
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-background-pattern"></div>
-            <div class="hero-content">
-                <div class="hero-tagline">
-                    <span class="tagline-text">Hong Kong</span>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Home</a>
+                    <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">About</a>
+                    <a href="#colors" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Colors</a>
+                    <a href="#clusters" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Patterns</a>
+                    <a href="#prediction" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Effectiveness</a>
                 </div>
-                <h1 class="hero-title">
-                    <span class="title-main">Automated</span>
-                    <span class="title-accent">Urban Color Palette Generation</span>
-                </h1>
-                <div class="hero-subtitle">Using Google Street View Imagery and Vision-Language Models</div>
             </div>
-        </section>
+        </div>
+    </nav>
 
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <div class="about-intro">
-                <div class="about-line">Urban color is a key component in shaping visual perception and identity,<br>yet it remains insufficiently quantified in large-scale urban analytics.</div>
-                <div class="about-line">We propose a systematic and scalable framework for generating urban color palettes by leveraging Google Street View imagery and vision-language models.</div>
-                <div class="about-line">75852 GSV images cross Hong Kong are processed using CLIP for zero-shot weather classification and Grounded SAM for open-vocabulary semantic segmentation.</div>
-                <div class="about-line">Our findings reveal distinct spatial patterns in urban color that reflect regional characteristics, and strong explanatory power of urban color features in housing price prediction.</div>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-white pt-16">
+        <div class="absolute inset-0 bg-gradient-to-b from-red-200/20 via-yellow-200/20 to-blue-200/20 pointer-events-none"></div>
+        <div class="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <span class="inline-block bg-gradient-to-r from-amber-600 via-yellow-600 to-blue-600 text-white px-6 py-2 rounded-full text-sm font-medium uppercase tracking-wide">
+                    Hong Kong
+                </span>
             </div>
-        </section>
-
-        <!-- Conceptual Framework Section -->
-        <section class="conceptual-framework-section">
-            <div class="conceptual-framework-container">
-                <img src="conceptual_framework-02.svg" alt="Conceptual Framework" class="conceptual-framework-image">
-            </div>
-        </section>
-
-    <!-- 22 Colors Palette Section -->
-    <section id="colors" class="colors22-section">
-      <div class="colors22-header">
-        <h2 class="colors22-title">Representative Colors of Hong Kong</h2>
-        <div class="colors22-subtitle">Combining Incremental K-means clustering in the RGB color space <br>and Color Difference Formula in the CIELab color space, <br>we extract 22 representative colors of Hong Kong from all targeted pixels.</div>
-      </div>
-      <div class="colors22-bar">
-        <div class="color22-item">
-          <img src="22colors/1.svg" class="color22-img" alt="Color 1" />
+            <h1 class="font-georgia text-4xl sm:text-5xl lg:text-6xl font-normal text-black leading-tight mb-8">
+                <span class="italic">Automated</span><br>
+                <span class="font-semibold">Urban Color Palette Generation</span>
+            </h1>
+            <p class="font-georgia text-lg sm:text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Using Google Street View Imagery and Vision-Language Models
+            </p>
         </div>
-        <div class="color22-item">
-          <img src="22colors/2.svg" class="color22-img" alt="Color 2" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/3.svg" class="color22-img" alt="Color 3" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/4.svg" class="color22-img" alt="Color 4" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/5.svg" class="color22-img" alt="Color 5" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/6.svg" class="color22-img" alt="Color 6" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/7.svg" class="color22-img" alt="Color 7" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/8.svg" class="color22-img" alt="Color 8" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/9.svg" class="color22-img" alt="Color 9" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/10.svg" class="color22-img" alt="Color 10" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/11.svg" class="color22-img" alt="Color 11" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/12.svg" class="color22-img" alt="Color 12" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/13.svg" class="color22-img" alt="Color 13" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/14.svg" class="color22-img" alt="Color 14" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/15.svg" class="color22-img" alt="Color 15" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/16.svg" class="color22-img" alt="Color 16" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/17.svg" class="color22-img" alt="Color 17" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/18.svg" class="color22-img" alt="Color 18" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/19.svg" class="color22-img" alt="Color 19" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/20.svg" class="color22-img" alt="Color 20" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/21.svg" class="color22-img" alt="Color 21" />
-        </div>
-        <div class="color22-item">
-          <img src="22colors/22.svg" class="color22-img" alt="Color 22" />
-        </div>
-      </div>
     </section>
 
+    <!-- About Section -->
+    <section id="about" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="space-y-12 text-center">
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed opacity-0 transform translate-y-8 transition-all duration-700" data-animate="about-line">
+                    Urban color is a key component in shaping visual perception and identity,<br class="hidden sm:inline">yet it remains insufficiently quantified in large-scale urban analytics.
+                </p>
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed opacity-0 transform translate-y-8 transition-all duration-700" data-animate="about-line">
+                    We propose a systematic and scalable framework for generating urban color palettes by leveraging Google Street View imagery and vision-language models.
+                </p>
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed opacity-0 transform translate-y-8 transition-all duration-700" data-animate="about-line">
+                    75852 GSV images cross Hong Kong are processed using CLIP for zero-shot weather classification and Grounded SAM for open-vocabulary semantic segmentation.
+                </p>
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed opacity-0 transform translate-y-8 transition-all duration-700" data-animate="about-line">
+                    Our findings reveal distinct spatial patterns in urban color that reflect regional characteristics, and strong explanatory power of urban color features in housing price prediction.
+                </p>
+            </div>
+        </div>
+    </section>
 
+    <!-- Conceptual Framework Section -->
+    <section class="py-16 sm:py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center">
+                <img src="conceptual_framework-02.svg" alt="Conceptual Framework" class="max-w-full h-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="conceptual-framework">
+            </div>
+        </div>
+    </section>
+
+    <!-- 22 Colors Palette Section -->
+    <section id="colors" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-georgia text-3xl sm:text-4xl lg:text-5xl font-normal text-black mb-8 leading-tight">
+                    Representative Colors of Hong Kong
+                </h2>
+                <p class="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
+                    Combining Incremental K-means clustering in the RGB color space <br class="hidden sm:inline">and Color Difference Formula in the CIELab color space, <br class="hidden sm:inline">we extract 22 representative colors of Hong Kong from all targeted pixels.
+                </p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 max-w-5xl mx-auto">
+                <!-- Color items will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
 
     <!-- Weather Switch Section -->
-    <section class="weather-switch-section">
-      <div class="weather-split-container">
-        <div class="weather-left-content">
-          <h2 class="weather-title">Urban Color <br>Affected by Weather</h2>
-          <div class="weather-subtitle">
-            <b style="font-size:1.15em; color:#000;"><a href="https://github.com/openai/CLIP" target="_blank" rel="noopener noreferrer" style="color:#000;">CLIP</a></b> is used to classify GSV images according to weather conditions.
-            <br><br>
-            On cloudy days, muted-neutral and dark-earthy colors are more dominant, due to diffuse lighting.
-            <br><br>
-            On sunny days, soft-cool and light-vibrant colors are more prominent, enhanced by <br>direct sunlight. 
-            <br><br>
-          </div>
-          <div class="weather-buttons">
-            <button class="weather-btn active" data-weather="sunny" data-percentage="26%">Sunny</button>
-            <button class="weather-btn" data-weather="cloudy" data-percentage="74%">Cloudy</button>
-          </div>
+    <section class="py-16 sm:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-1">
+                    <h2 class="font-georgia text-2xl sm:text-3xl lg:text-4xl font-normal text-black mb-8 leading-tight">
+                        Urban Color <br>Affected by Weather
+                    </h2>
+                    <div class="text-sm sm:text-base text-gray-700 leading-relaxed mb-8">
+                        <strong class="text-lg text-black"><a href="https://github.com/openai/CLIP" target="_blank" rel="noopener noreferrer" class="text-black hover:underline">CLIP</a></strong> is used to classify GSV images according to weather conditions.
+                        <br><br>
+                        On cloudy days, muted-neutral and dark-earthy colors are more dominant, due to diffuse lighting.
+                        <br><br>
+                        On sunny days, soft-cool and light-vibrant colors are more prominent, enhanced by <br class="hidden sm:inline">direct sunlight.
+                    </div>
+                    <div class="flex space-x-8">
+                        <button class="weather-btn active text-lg font-georgia font-medium text-gray-600 hover:text-black transition-colors relative" data-weather="sunny" data-percentage="26%">Sunny</button>
+                        <button class="weather-btn text-lg font-georgia font-medium text-gray-600 hover:text-black transition-colors relative" data-weather="cloudy" data-percentage="74%">Cloudy</button>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="max-w-4xl mx-auto">
+                        <img src="two_weather/sunnycolor-01.jpg" alt="Weather Image" id="weather-display-image" class="w-full h-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="weather-image">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="weather-right-content">
-          <div class="weather-image-frame">
-            <img src="two_weather/sunnycolor-01.jpg" alt="Weather Image" id="weather-display-image" class="weather-display-image" />
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Sankey Visualization Section -->
-    <section class="sankey-section">
-        <div class="sankey-split-container">
-            <div class="sankey-left-content">
-                <h2 class="sankey-title">Urban Color <br>Shaped by Semantics</h2>
-                <p class="sankey-description">
-                  <b style="font-size:1.15em; color:#000;">
-                    <a href="https://github.com/IDEA-Research/Grounded-Segment-Anything" target="_blank" rel="noopener noreferrer" style="color:#000;">Grounded SAM</a>
-                  </b> is used to segment GSV images into 18 semantic classes.<br>
-                  Each pixel of GSV images is assigned a semantic label, representing "what it is," and also assigned a color label, representing "what it looks like." This enables us to identify colors of specific semantics, as well as determine which semantics contribute to the presence of a color.
-                </p>
-                </p>
-                <p class="sankey-hover-text"><b>Hover or drag to explore →  </b></p>
-            </div>
-            <div class="sankey-right-content">
-                <iframe src="sankey_fullscreen.html" frameborder="0" width="100%" height="100%"></iframe>
+    <section class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-1">
+                    <h2 class="font-georgia text-2xl sm:text-3xl lg:text-4xl font-normal text-black mb-8 leading-tight">
+                        Urban Color <br>Shaped by Semantics
+                    </h2>
+                    <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-8">
+                        <strong class="text-lg text-black">
+                            <a href="https://github.com/IDEA-Research/Grounded-Segment-Anything" target="_blank" rel="noopener noreferrer" class="text-black hover:underline">Grounded SAM</a>
+                        </strong> is used to segment GSV images into 18 semantic classes.<br>
+                        Each pixel of GSV images is assigned a semantic label, representing "what it is," and also assigned a color label, representing "what it looks like." This enables us to identify colors of specific semantics, as well as determine which semantics contribute to the presence of a color.
+                    </p>
+                    <p class="font-georgia text-lg font-semibold text-black"><strong>Hover or drag to explore →</strong></p>
+                </div>
+                <div class="lg:col-span-3">
+                    <div class="aspect-[1.4/1] w-full">
+                        <iframe src="sankey_fullscreen.html" frameborder="0" class="w-full h-full"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Image Section -->
-    <section class="image-section">
-        <div class="image-split-container">
-            <div class="image-left-content">
-                <div class="image-description">
-                    <p><strong>Artificial backgrounds:</strong> <br>low-saturation browns and greys, reflecting material, age, or lighting exposure.</p>
-                    <p><strong>Natural backgrounds:</strong> <br>light blue or nearly white colors from the sky, and green tones from vegetation and terrain.</p>
-                    <p><strong>Static decorations:</strong> <br>greater color diversity with warm accent colors such as reds, oranges, and yellows, intended to attract attentions.</p>
-                    <p><strong>Dynamic decorations:</strong> <br>the greatest hue variation and highest saturation, reflecting personal choices like clothing and vehicle paint.</p>
+    <section class="py-16 sm:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-1">
+                    <div class="space-y-6 text-sm sm:text-base text-gray-700 leading-relaxed">
+                        <p><strong class="text-black">Artificial backgrounds:</strong> <br>low-saturation browns and greys, reflecting material, age, or lighting exposure.</p>
+                        <p><strong class="text-black">Natural backgrounds:</strong> <br>light blue or nearly white colors from the sky, and green tones from vegetation and terrain.</p>
+                        <p><strong class="text-black">Static decorations:</strong> <br>greater color diversity with warm accent colors such as reds, oranges, and yellows, intended to attract attentions.</p>
+                        <p><strong class="text-black">Dynamic decorations:</strong> <br>the greatest hue variation and highest saturation, reflecting personal choices like clothing and vehicle paint.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="image-right-content">
-                <div class="image-frame">
-                    <img src="mosaic-02.svg" alt="Research Image" class="image-display">
+                <div class="lg:col-span-3">
+                    <div class="max-w-4xl mx-auto">
+                        <img src="mosaic-02.svg" alt="Research Image" class="w-full h-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="mosaic-image">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Cluster Visual Section: bar plot frame和map frame横向排列，按钮在上方居中 -->
-    <section id="clusters" class="cluster-visual-section">
-      <div class="cluster-header">
-        <h2 class="cluster-title">Spatial Heterogeneity of Urban Color</h2>
-        <div class="cluster-subtitle">We perform clustering analysis based on the pixel ratios of 22 colors across all images. <br>Six dominant clusters are identified, demonstrating clear statistical and spatial patterns.</div>
-      </div>
-      <div class="cluster-barplot-btn-row">
-        <button class="cluster-btn active" data-img="cluster_1_map.svg" data-percentage="31.10%">I</button>
-        <button class="cluster-btn" data-img="cluster_2_map.svg" data-percentage="25.81%">II</button>
-        <button class="cluster-btn" data-img="cluster_3_map.svg" data-percentage="14.93%">III</button>
-        <button class="cluster-btn" data-img="cluster_4_map.svg" data-percentage="12.94%">IV</button>
-        <button class="cluster-btn" data-img="cluster_5_map.svg" data-percentage="10.29%">V</button>
-        <button class="cluster-btn" data-img="cluster_6_map.svg" data-percentage="4.92%">VI</button>
-      </div>
-      <div class="cluster-visual-flex-row">
-        <div class="cluster-image-frame">
-          <img src="cluster/cluster_1_map.svg" alt="Cluster Image" id="cluster-image" class="cluster-image" />
+    <!-- Cluster Visual Section -->
+    <section id="clusters" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-georgia text-3xl sm:text-4xl lg:text-5xl font-normal text-black mb-8 leading-tight">
+                    Spatial Heterogeneity of Urban Color
+                </h2>
+                <p class="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
+                    We perform clustering analysis based on the pixel ratios of 22 colors across all images. <br class="hidden sm:inline">Six dominant clusters are identified, demonstrating clear statistical and spatial patterns.
+                </p>
+            </div>
+            
+            <!-- Cluster Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mb-12">
+                <button class="cluster-btn active px-4 py-2 text-lg font-georgia font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_1_map.svg" data-percentage="31.10%">I</button>
+                <button class="cluster-btn px-4 py-2 text-lg font-georgia font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_2_map.svg" data-percentage="25.81%">II</button>
+                <button class="cluster-btn px-4 py-2 text-lg font-georgia font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_3_map.svg" data-percentage="14.93%">III</button>
+                <button class="cluster-btn px-4 py-2 text-lg font-georgia font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_4_map.svg" data-percentage="12.94%">IV</button>
+                <button class="cluster-btn px-4 py-2 text-lg font-georgia font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_5_map.svg" data-percentage="10.29%">V</button>
+                <button class="cluster-btn px-4 py-2 text-lg font-georgia font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_6_map.svg" data-percentage="4.92%">VI</button>
+            </div>
+            
+            <!-- Cluster Visual Content -->
+            <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-2">
+                    <img src="cluster/cluster_1_map.svg" alt="Cluster Image" id="cluster-image" class="w-full h-auto">
+                </div>
+                <div class="lg:col-span-1 space-y-8">
+                    <div>
+                        <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="w-full h-auto">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                            <img src="GSVimages/1a.jpg" id="gsv-img-a" class="w-full h-full object-cover" alt="GSV 1a">
+                        </div>
+                        <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                            <img src="GSVimages/1b.jpg" id="gsv-img-b" class="w-full h-full object-cover" alt="GSV 1b">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="cluster-barplot-frame">
-          <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="cluster-barplot-img" />
-        </div>
-        <div class="gsv-pair-row">
-          <div class="gsv-square"><img src="GSVimages/1a.jpg" id="gsv-img-a" class="gsv-square-img" alt="GSV 1a" /></div>
-          <div class="gsv-square"><img src="GSVimages/1b.jpg" id="gsv-img-b" class="gsv-square-img" alt="GSV 1b" /></div>
-        </div>
-      </div>
     </section>
 
     <!-- Housing Price Prediction Section -->
-    <section id="prediction" class="housing-prediction-section">
-      <div class="housing-prediction-header">
-        <h2 class="housing-prediction-title">Predicting Housing Prices <br>Using Urban Color Information</h2>
-        <div class="housing-prediction-subtitle">To assess the effectiveness of urban color features under controlled lighting conditions, <br>we conduct a housing price prediction task using only cloudy-day images with random forest regression.</div>
-      </div>
-      <div class="housing-prediction-content">
-
-        <div class="housing-prediction-groups">
-          <div class="prediction-group">
-            <div class="prediction-explanation">
-              <p class="prediction-text">Model performance improves as buffer size increases from 200m to 1000m, with <span class="highlight-data">800m</span> being optimal to capture the relationship.</p>
+    <section id="prediction" class="py-16 sm:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-georgia text-3xl sm:text-4xl lg:text-5xl font-normal text-black mb-8 leading-tight">
+                    Predicting Housing Prices <br class="hidden sm:inline">Using Urban Color Information
+                </h2>
+                <p class="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
+                    To assess the effectiveness of urban color features under controlled lighting conditions, <br class="hidden sm:inline">we conduct a housing price prediction task using only cloudy-day images with random forest regression.
+                </p>
             </div>
-          </div>
-          
-          <div class="prediction-group">
-            <div class="prediction-explanation">
-              <p class="prediction-text">The model with color features alone achieves an R² of <span class="highlight-data">0.5553</span>, outperforming the 0.5059 obtained with semantic features alone.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="text-center p-6">
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text">
+                        Model performance improves as buffer size increases from 200m to 1000m, with <span class="text-2xl font-semibold text-black font-georgia">800m</span> being optimal to capture the relationship.
+                    </p>
+                </div>
+                <div class="text-center p-6">
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text">
+                        The model with color features alone achieves an R² of <span class="text-2xl font-semibold text-black font-georgia">0.5553</span>, outperforming the 0.5059 obtained with semantic features alone.
+                    </p>
+                </div>
+                <div class="text-center p-6">
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text">
+                        Adding color features increases the R² of the base model with housing location and accessibility from 0.6085 to <span class="text-2xl font-semibold text-black font-georgia">0.6253</span>.
+                    </p>
+                </div>
             </div>
-          </div>
-          <div class="prediction-group">
-            <div class="prediction-explanation">
-              <p class="prediction-text">Adding color features increases the R² of the base model with housing location and accessibility from 0.6085 to <span class="highlight-data">0.6253</span>.</p>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
-        <!-- Footer -->
-        <section class="tech-showcase">
-            <div class="footer-simple">
-                <p>Student: Li Xiaoyu | Supervisor: Prof. Zhou Yulun</p>
-                <p>2024-2025 MUA | The University of Hong Kong</p>
-                <p>Code and dataset available <a href="https://github.com/Celia-0010/Urban_color_palette" target="_blank">Here</a></p>
+    <!-- Footer -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="space-y-4">
+                <p class="font-georgia text-sm text-gray-600">Student: Li Xiaoyu | Supervisor: Prof. Zhou Yulun</p>
+                <p class="font-georgia text-sm text-gray-600">2024-2025 MUA | The University of Hong Kong</p>
+                <p class="font-georgia text-sm text-gray-600">Code and dataset available <a href="https://github.com/Celia-0010/Urban_color_palette" target="_blank" class="text-blue-600 hover:underline">Here</a></p>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </div> <!-- End of main-content -->
-    </div> <!-- End of fixed-width-container -->
-
-
-<script>
-// 22 Colors section intersection observer for animation
-(function() {
-  var section = document.querySelector('.colors22-section');
-  if (!section) return;
-  var observer = new window.IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        section.classList.add('active');
-        observer.disconnect(); // 只触发一次
-      }
-    });
-  }, { threshold: 0.5 }); // section至少有一半进入视口才触发
-  observer.observe(section);
-})();
-
-
-
-// About section smooth fade-in: 流畅的淡入效果
-(function() {
-  var aboutLines = document.querySelectorAll('.about-line');
-  if (!aboutLines.length) return;
-  
-  // 确保初始全部隐藏
-  aboutLines.forEach(function(line) {
-    line.classList.remove('visible');
-  });
-  
-  function showLinesSequentially(idx) {
-    if (idx >= aboutLines.length) return;0
-    aboutLines[idx].classList.add('visible');
-    setTimeout(function() {
-      showLinesSequentially(idx + 1);
-    }, 350);
-  }
-  
-  // IntersectionObserver触发动画 - 与script.js中其他元素一致的触发机制
-  var aboutSection = document.querySelector('.about-section');
-  var triggered = false;
-  var observer = new window.IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting && !triggered) {
-        triggered = true;
-        showLinesSequentially(0);
-        observer.disconnect(); // 只触发一次
-      }
-    });
-  }, {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-  }); // 与script.js中cluster section相同的触发参数
-  observer.observe(aboutSection);
-})();
-
-// Cluster section image switcher (map + bar plot) with percentage display
-(function() {
-  var btns = document.querySelectorAll('.cluster-btn');
-  var mapImg = document.getElementById('cluster-image');
-  var barImg = document.getElementById('cluster-barplot-img');
-  if (!btns.length || !mapImg || !barImg) return;
-  
-  // Initialize with first button active
-  var firstBtn = btns[0];
-  firstBtn.classList.add('active');
-  // Keep showing Roman numeral I initially
-  
-  btns.forEach(function(btn, idx) {
-    btn.addEventListener('click', function() {
-      var n = idx + 1;
-      var percentage = this.getAttribute('data-percentage');
-      
-      // Update images
-      mapImg.src = 'cluster/cluster_' + n + '_map.svg';
-      barImg.src = 'cluster_bar/cluster_bar_plot_cluster' + n +'.svg';
-      
-      // Update button states and text
-      btns.forEach(function(b) {
-        b.classList.remove('active');
-        // Reset all buttons to their original text
-        var originalBtnText = b.textContent === b.getAttribute('data-percentage') ? 
-          (b.getAttribute('data-img').includes('1') ? 'I' : 
-           b.getAttribute('data-img').includes('2') ? 'II' : 
-           b.getAttribute('data-img').includes('3') ? 'III' : 
-           b.getAttribute('data-img').includes('4') ? 'IV' : 
-           b.getAttribute('data-img').includes('5') ? 'V' : 'VI') : 
-          b.textContent;
-        b.textContent = originalBtnText;
-      });
-      
-      // Set active state and show percentage
-      btn.classList.add('active');
-      btn.textContent = percentage;
-    });
-  });
-})();
-
-// 同步切换GSV图片
-(function() {
-  var btns = document.querySelectorAll('.cluster-btn');
-  var gsvA = document.getElementById('gsv-img-a');
-  var gsvB = document.getElementById('gsv-img-b');
-  if (!btns.length || !gsvA || !gsvB) return;
-  btns.forEach(function(btn, idx) {
-    btn.addEventListener('click', function() {
-      var n = idx + 1;
-      gsvA.src = 'GSVimages/' + n + 'a.jpg';
-      gsvB.src = 'GSVimages/' + n + 'b.jpg';
-    });
-  });
-})();
-
-// Weather button switching functionality with percentage display
-(function() {
-  var weatherBtns = document.querySelectorAll('.weather-btn');
-  var weatherImage = document.getElementById('weather-display-image');
-  if (!weatherBtns.length || !weatherImage) return;
-  
-  weatherBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var weather = this.getAttribute('data-weather');
-      var percentage = this.getAttribute('data-percentage');
-      
-      // Update button states and text
-      weatherBtns.forEach(function(b) {
-        b.classList.remove('active');
-        // Reset all buttons to their original text
-        var originalBtnText = b.textContent === b.getAttribute('data-percentage') ? 
-          (b.getAttribute('data-weather') === 'sunny' ? 'Sunny' : 'Cloudy') : 
-          b.textContent;
-        b.textContent = originalBtnText;
-      });
-      
-      // Set active state and show percentage
-      this.classList.add('active');
-      this.textContent = percentage;
-      
-      // Update image
-      if (weather === 'sunny') {
-        weatherImage.src = 'two_weather/sunnycolor-01-01.svg';
-      } else if (weather === 'cloudy') {
-        weatherImage.src = 'two_weather/cloudycolor-01-01.svg';
-      }
-    });
-  });
-  
-  // Don't show percentage on initial load - keep original text
-})();
-
-// Conceptual framework section intersection observer for animation
-(function() {
-  var section = document.querySelector('.conceptual-framework-section');
-  if (!section) return;
-  var observer = new window.IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        section.classList.add('active');
-        observer.disconnect(); // 只触发一次
-      }
-    });
-  }, { threshold: 0.5 }); // section至少有一半进入视口才触发
-  observer.observe(section);
-})();
-
-// Image section intersection observer for animation
-(function() {
-  var section = document.querySelector('.image-section');
-  if (!section) return;
-  var observer = new window.IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        section.classList.add('active');
-        observer.disconnect(); // 只触发一次
-      }
-    });
-  }, { threshold: 0.5 }); // section至少有一半进入视口才触发
-  observer.observe(section);
-})();
-
-// Housing prediction section intersection observer for animation
-(function() {
-  var section = document.querySelector('.housing-prediction-section');
-  if (!section) return;
-  var observer = new window.IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        section.classList.add('active');
-        
-        // 触发三段话的依次动画
-        var predictionTexts = document.querySelectorAll('.prediction-text');
-        predictionTexts.forEach(function(text, index) {
-          setTimeout(function() {
-            text.classList.add('animate');
-          }, index * 300); // 每300ms触发一个
-        });
-        
-        observer.disconnect(); // 只触发一次
-      }
-    });
-  }, { threshold: 0.5 }); // section至少有一半进入视口才触发
-  observer.observe(section);
-})();
-
-
-</script>
-    </div> <!-- End of main-content -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>

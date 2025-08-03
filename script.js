@@ -1,25 +1,16 @@
 // 全局变量
 let scene, camera, renderer, particles;
 let mouseX = 0, mouseY = 0;
-let windowHalfX = window.innerWidth / 2; // 恢复使用实际窗口宽度
+let windowHalfX = window.innerWidth / 2;
 let windowHalfY = window.innerHeight / 2;
 let hasUserScrolled = false;
 let hasTitleAnimated = false;
 
 // 获取实际显示尺寸的函数
 function getDisplaySize() {
-    const container = document.querySelector('.fixed-width-container');
-    if (!container) {
-        return {
-            width: window.innerWidth,
-            height: window.innerHeight
-        };
-    }
-    
-    const rect = container.getBoundingClientRect();
     return {
-        width: rect.width,
-        height: rect.height
+        width: window.innerWidth,
+        height: window.innerHeight
     };
 }
 
@@ -170,37 +161,14 @@ function initScrollAnimations() {
     }, observerOptions);
 
     // 观察需要动画的元素
-    const animatedElements = document.querySelectorAll('.about-card, .research-item, .team-member, .stat, .centered-image, .weather-display-image');
+    const animatedElements = document.querySelectorAll('[data-animate]');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-
-
-
-    // 为cluster section添加滚动触发动画
-    const clusterSection = document.querySelector('.cluster-visual-section');
-    if (clusterSection) {
-        clusterSection.classList.remove('active');
-        const clusterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    clusterObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        });
-        clusterObserver.observe(clusterSection);
-    }
-
 }
-
-
 
 // 数字计数动画
 function initCounterAnimation() {
@@ -236,8 +204,6 @@ function initCounterAnimation() {
         counterObserver.observe(counter);
     });
 }
-
-
 
 // 视差滚动效果
 function initParallaxEffect() {
@@ -308,82 +274,103 @@ function initButtonEffects() {
 
 // 打字机动画
 function typeWriterEffect(element, text, speed = 35, callback) {
-  let i = 0;
-  function type() {
-    if (i <= text.length) {
-      element.innerHTML = text.slice(0, i).replace(/\n/g, '<br>');
-      i++;
-      setTimeout(type, speed);
-    } else if (callback) {
-      callback();
+    let i = 0;
+    function type() {
+        if (i <= text.length) {
+            element.innerHTML = text.slice(0, i).replace(/\n/g, '<br>');
+            i++;
+            setTimeout(type, speed);
+        } else if (callback) {
+            callback();
+        }
     }
-  }
-  type();
+    type();
 }
 
 // 逐行显示 about section
 function showAboutLinesSequentially() {
-  const lines = document.querySelectorAll('.about-line');
-  let i = 0;
-  function showNext() {
-    if (i < lines.length) {
-      lines[i].classList.add('visible');
-      i++;
-      setTimeout(showNext, 700); // 每行间隔，可调整
+    const lines = document.querySelectorAll('[data-animate="about-line"]');
+    let i = 0;
+    function showNext() {
+        if (i < lines.length) {
+            lines[i].style.opacity = '1';
+            lines[i].style.transform = 'translateY(0)';
+            i++;
+            setTimeout(showNext, 700); // 每行间隔，可调整
+        }
     }
-  }
-  showNext();
+    showNext();
 }
 
 // 第二个 section 介绍内容随滚动逐行淡入
 function showAboutLinesOnScroll() {
-  const lines = document.querySelectorAll('.about-line');
-  if (!lines.length) return;
+    const lines = document.querySelectorAll('[data-animate="about-line"]');
+    if (!lines.length) return;
 
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-  lines.forEach(line => observer.observe(line));
+    lines.forEach(line => observer.observe(line));
+}
+
+// 移动端菜单功能
+function initMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function() {
+            // 切换菜单状态
+            mobileMenu.classList.toggle('hidden');
+            
+            // 汉堡菜单动画
+            const bars = this.querySelectorAll('span');
+            bars.forEach((bar, index) => {
+                if (mobileMenu.classList.contains('hidden')) {
+                    // 恢复原始状态
+                    bar.style.transform = '';
+                    bar.style.opacity = '';
+                } else {
+                    // 动画到X状态
+                    if (index === 0) {
+                        bar.style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    } else if (index === 1) {
+                        bar.style.opacity = '0';
+                    } else if (index === 2) {
+                        bar.style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                    }
+                }
+            });
+        });
+
+        // 点击菜单链接时关闭菜单
+        mobileMenuLinks?.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                const bars = mobileMenuButton.querySelectorAll('span');
+                bars.forEach(bar => {
+                    bar.style.transform = '';
+                    bar.style.opacity = '';
+                });
+            });
+        });
+    }
 }
 
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('a[href^="#"]');
 
     console.log('Navigation elements found:', {
-        hamburger: !!hamburger,
-        navMenu: !!navMenu,
         navLinks: navLinks.length
-    });
-
-    // Toggle mobile menu
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Hamburger clicked');
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-    }
-
-    // Close mobile menu when clicking on a link
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            console.log('Nav link clicked:', this.getAttribute('href'));
-            if (hamburger && navMenu) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
-        });
     });
 
     // Smooth scrolling for navigation links
@@ -405,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 手动调整位置以考虑固定导航栏
                 setTimeout(() => {
                     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-                    const navbarHeight = 60; // 导航栏高度
+                    const navbarHeight = 64; // 导航栏高度
                     window.scrollTo(0, currentScroll - navbarHeight);
                 }, 100);
             }
@@ -415,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 初始化导航栏滚动效果
 function initNavbarScroll() {
-    const navbar = document.querySelector('.navbar');
+    const navbar = document.querySelector('nav');
     if (!navbar) return;
     
     let lastScrollTop = 0;
@@ -425,23 +412,16 @@ function initNavbarScroll() {
         
         // 添加/移除背景色
         if (scrollTop > 50) {
-            navbar.classList.add('scrolled');
+            navbar.classList.add('bg-white/95');
+            navbar.classList.remove('bg-white/80');
         } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        // 隐藏/显示导航栏（可选）
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            navbar.style.transform = 'translateY(0)';
+            navbar.classList.remove('bg-white/95');
+            navbar.classList.add('bg-white/80');
         }
         
         lastScrollTop = scrollTop;
     });
 }
-
-// 移动端菜单功能已整合到主要的导航功能中
 
 // 初始化联系表单
 function initContactForm() {
@@ -452,6 +432,121 @@ function initContactForm() {
             // 这里可以添加表单提交逻辑
             alert('感谢您的留言！我们会尽快回复。');
         });
+    }
+}
+
+// 生成22种颜色
+function generateColorPalette() {
+    const colorContainer = document.querySelector('#colors .flex.flex-wrap');
+    if (!colorContainer) return;
+
+    for (let i = 1; i <= 22; i++) {
+        const colorItem = document.createElement('div');
+        colorItem.className = 'w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 transition-transform duration-200 hover:scale-110 cursor-pointer';
+        
+        const img = document.createElement('img');
+        img.src = `22colors/${i}.svg`;
+        img.alt = `Color ${i}`;
+        img.className = 'w-full h-full object-cover opacity-0 transform translate-y-8 transition-all duration-700';
+        img.style.animationDelay = `${i * 0.12}s`;
+        
+        colorItem.appendChild(img);
+        colorContainer.appendChild(colorItem);
+    }
+}
+
+// Cluster image switcher with percentage display
+function initClusterSwitcher() {
+    const clusterImg = document.getElementById('cluster-image');
+    const clusterBtns = document.querySelectorAll('.cluster-btn');
+    const gsvA = document.getElementById('gsv-img-a');
+    const gsvB = document.getElementById('gsv-img-b');
+    
+    if (!clusterImg || !clusterBtns.length) return;
+    
+    clusterBtns.forEach((btn, idx) => {
+        btn.addEventListener('click', function() {
+            const imgName = this.getAttribute('data-img');
+            const percentage = this.getAttribute('data-percentage');
+            const n = idx + 1;
+            
+            // Update images
+            clusterImg.src = 'cluster/' + imgName;
+            if (gsvA && gsvB) {
+                gsvA.src = `GSVimages/${n}a.jpg`;
+                gsvB.src = `GSVimages/${n}b.jpg`;
+            }
+            
+            // Update button states
+            clusterBtns.forEach(b => {
+                b.classList.remove('active', 'text-black', 'font-semibold');
+                b.classList.add('text-gray-600');
+                // Reset all buttons to their original text
+                const originalBtnText = b.textContent === b.getAttribute('data-percentage') ? 
+                    (b.getAttribute('data-img').includes('1') ? 'I' : 
+                     b.getAttribute('data-img').includes('2') ? 'II' : 
+                     b.getAttribute('data-img').includes('3') ? 'III' : 
+                     b.getAttribute('data-img').includes('4') ? 'IV' : 
+                     b.getAttribute('data-img').includes('5') ? 'V' : 'VI') : 
+                    b.textContent;
+                b.textContent = originalBtnText;
+            });
+            
+            // Set active state and show percentage
+            this.classList.add('active', 'text-black', 'font-semibold');
+            this.classList.remove('text-gray-600');
+            this.textContent = percentage;
+        });
+    });
+    
+    // 默认高亮第一个按钮
+    if (clusterBtns[0]) {
+        clusterBtns[0].classList.add('active', 'text-black', 'font-semibold');
+        clusterBtns[0].classList.remove('text-gray-600');
+    }
+}
+
+// Weather button switching functionality with percentage display
+function initWeatherSwitcher() {
+    const weatherBtns = document.querySelectorAll('.weather-btn');
+    const weatherImage = document.getElementById('weather-display-image');
+    
+    if (!weatherBtns.length || !weatherImage) return;
+    
+    weatherBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const weather = this.getAttribute('data-weather');
+            const percentage = this.getAttribute('data-percentage');
+            
+            // Update button states and text
+            weatherBtns.forEach(b => {
+                b.classList.remove('active', 'text-black', 'font-semibold');
+                b.classList.add('text-gray-600');
+                // Reset all buttons to their original text
+                const originalBtnText = b.textContent === b.getAttribute('data-percentage') ? 
+                    (b.getAttribute('data-weather') === 'sunny' ? 'Sunny' : 'Cloudy') : 
+                    b.textContent;
+                b.textContent = originalBtnText;
+            });
+            
+            // Set active state and show percentage
+            this.classList.add('active', 'text-black', 'font-semibold');
+            this.classList.remove('text-gray-600');
+            this.textContent = percentage;
+            
+            // Update image
+            if (weather === 'sunny') {
+                weatherImage.src = 'two_weather/sunnycolor-01-01.svg';
+            } else if (weather === 'cloudy') {
+                weatherImage.src = 'two_weather/cloudycolor-01-01.svg';
+            }
+        });
+    });
+    
+    // 默认高亮第一个按钮
+    if (weatherBtns[0]) {
+        weatherBtns[0].classList.add('active', 'text-black', 'font-semibold');
+        weatherBtns[0].classList.remove('text-gray-600');
     }
 }
 
@@ -466,63 +561,32 @@ document.addEventListener('DOMContentLoaded', function() {
     initParallaxEffect();
     initColorCubeInteraction();
     initButtonEffects();
+    initMobileMenu();
+    generateColorPalette();
+    initClusterSwitcher();
+    initWeatherSwitcher();
     
     // 启动打字机动画，动画结束后设置 hasTitleAnimated
     var titleText = "AUTOMATED URBAN COLOR PALETTE GENERATION\n";
     var titleElem = document.getElementById('hero-typing-title');
     if (titleElem) {
-      typeWriterEffect(titleElem, titleText, 35, function() {
-        hasTitleAnimated = true;
-        // 如果第一行已在视口且已滚轮，立即显示
-        const firstLine = document.querySelector('.about-line');
-        if (firstLine && firstLine._pendingShow && hasUserScrolled) {
-          setTimeout(() => {
-            firstLine.classList.add('visible');
-          }, 400);
-          firstLine._pendingShow = false;
-        }
-      });
+        typeWriterEffect(titleElem, titleText, 35, function() {
+            hasTitleAnimated = true;
+            // 如果第一行已在视口且已滚轮，立即显示
+            const firstLine = document.querySelector('[data-animate="about-line"]');
+            if (firstLine && firstLine._pendingShow && hasUserScrolled) {
+                setTimeout(() => {
+                    firstLine.style.opacity = '1';
+                    firstLine.style.transform = 'translateY(0)';
+                }, 400);
+                firstLine._pendingShow = false;
+            }
+        });
     }
 
     // 逐行显示 about section
     showAboutLinesSequentially();
     showAboutLinesOnScroll();
-
-    // Cluster image switcher with percentage display
-    const clusterImg = document.getElementById('cluster-image');
-    const clusterBtns = document.querySelectorAll('.cluster-btn');
-    if (clusterImg && clusterBtns.length) {
-      clusterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-          const imgName = this.getAttribute('data-img');
-          const percentage = this.getAttribute('data-percentage');
-          const originalText = this.textContent;
-          
-          // Update images
-          clusterImg.src = 'cluster/' + imgName;
-          
-          // Update button states
-          clusterBtns.forEach(b => {
-            b.classList.remove('active');
-            // Reset all buttons to their original text
-            const originalBtnText = b.textContent === b.getAttribute('data-percentage') ? 
-              (b.getAttribute('data-img').includes('1') ? 'I' : 
-               b.getAttribute('data-img').includes('2') ? 'II' : 
-               b.getAttribute('data-img').includes('3') ? 'III' : 
-               b.getAttribute('data-img').includes('4') ? 'IV' : 
-               b.getAttribute('data-img').includes('5') ? 'V' : 'VI') : 
-              b.textContent;
-            b.textContent = originalBtnText;
-          });
-          
-          // Set active state and show percentage
-          this.classList.add('active');
-          this.textContent = percentage;
-        });
-      });
-      // 默认高亮第一个按钮
-      clusterBtns[0].classList.add('active');
-    }
 });
 
 // 性能优化：节流函数
@@ -543,6 +607,11 @@ function throttle(func, limit) {
 window.addEventListener('scroll', throttle(() => {
     // 滚动相关的性能敏感操作
 }, 16)); // 约60fps
+
+// 窗口大小调整事件
+window.addEventListener('resize', throttle(() => {
+    onWindowResize();
+}, 100));
 
 
 

@@ -3,84 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Test - Cluster Section</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            background: #f0f0f0;
+    <title>Responsive Test - Hong Kong Urban Color</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'georgia': ['Georgia', 'Times New Roman', 'serif']
+                    }
+                }
+            }
         }
-        .test-container {
-            max-width: 100%;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 0 auto;
-        }
-        .screen-size-indicator {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: monospace;
-            z-index: 1000;
-        }
-    </style>
+    </script>
 </head>
-<body>
-    <div class="screen-size-indicator" id="screen-size"></div>
-    
-    <div class="test-container">
-        <h1>Cluster Section Responsive Test</h1>
-        <p>调整浏览器窗口大小来测试响应式布局</p>
-        
-        <!-- Cluster Visual Section -->
-        <section id="clusters" class="cluster-visual-section">
-            <div class="cluster-header">
-                <h2 class="cluster-title">Spatial Heterogeneity of Urban Color</h2>
-                <div class="cluster-subtitle">We perform clustering analysis based on the pixel ratios of 22 colors across all images. <br>Six dominant clusters are identified, demonstrating clear statistical and spatial patterns.</div>
-            </div>
-            <div class="cluster-barplot-btn-row">
-                <button class="cluster-btn active" data-img="cluster_1_map.svg" data-percentage="31.10%">I</button>
-                <button class="cluster-btn" data-img="cluster_2_map.svg" data-percentage="25.81%">II</button>
-                <button class="cluster-btn" data-img="cluster_3_map.svg" data-percentage="14.93%">III</button>
-                <button class="cluster-btn" data-img="cluster_4_map.svg" data-percentage="12.94%">IV</button>
-                <button class="cluster-btn" data-img="cluster_5_map.svg" data-percentage="10.29%">V</button>
-                <button class="cluster-btn" data-img="cluster_6_map.svg" data-percentage="4.92%">VI</button>
-            </div>
-            <div class="cluster-visual-flex-row">
-                <div class="cluster-image-frame">
-                    <img src="cluster/cluster_1_map.svg" alt="Cluster Image" id="cluster-image" class="cluster-image" />
+<body class="bg-white text-gray-900 font-inter">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-sm z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">About</a>
+                    <a href="#colors" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Colors</a>
+                    <a href="#clusters" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Patterns</a>
+                    <a href="#prediction" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Effectiveness</a>
                 </div>
-                <div class="cluster-barplot-frame">
-                    <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="cluster-barplot-img" />
-                </div>
-                <div class="gsv-pair-row">
-                    <div class="gsv-square"><img src="GSVimages/1a.jpg" id="gsv-img-a" class="gsv-square-img" alt="GSV 1a" /></div>
-                    <div class="gsv-square"><img src="GSVimages/1b.jpg" id="gsv-img-b" class="gsv-square-img" alt="GSV 1b" /></div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="flex flex-col space-y-1">
+                        <span class="w-6 h-0.5 bg-gray-600 transition-all"></span>
+                        <span class="w-6 h-0.5 bg-gray-600 transition-all"></span>
+                        <span class="w-6 h-0.5 bg-gray-600 transition-all"></span>
+                    </button>
                 </div>
             </div>
-        </section>
-    </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Home</a>
+                    <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">About</a>
+                    <a href="#colors" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Colors</a>
+                    <a href="#clusters" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Patterns</a>
+                    <a href="#prediction" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Effectiveness</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-white pt-16">
+        <div class="absolute inset-0 bg-gradient-to-b from-red-200/20 via-yellow-200/20 to-blue-200/20 pointer-events-none"></div>
+        <div class="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <span class="inline-block bg-gradient-to-r from-amber-600 via-yellow-600 to-blue-600 text-white px-6 py-2 rounded-full text-sm font-medium uppercase tracking-wide">
+                    Hong Kong
+                </span>
+            </div>
+            <h1 class="font-georgia text-4xl sm:text-5xl lg:text-6xl font-normal text-black leading-tight mb-8">
+                <span class="italic">Automated</span><br>
+                <span class="font-semibold">Urban Color Palette Generation</span>
+            </h1>
+            <p class="font-georgia text-lg sm:text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Using Google Street View Imagery and Vision-Language Models
+            </p>
+        </div>
+    </section>
+
+    <!-- Test Section -->
+    <section class="py-16 sm:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-georgia text-3xl sm:text-4xl lg:text-5xl font-normal text-black mb-8 leading-tight">
+                    Responsive Design Test
+                </h2>
+                <p class="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
+                    This page demonstrates the responsive design improvements. Try resizing your browser window or viewing on different devices.
+                </p>
+            </div>
+            
+            <!-- Grid Test -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Mobile First</h3>
+                    <p class="text-gray-600">Design starts with mobile and scales up to desktop.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Tailwind CSS</h3>
+                    <p class="text-gray-600">Utility-first CSS framework for rapid development.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Responsive</h3>
+                    <p class="text-gray-600">Adapts seamlessly across all screen sizes.</p>
+                </div>
+            </div>
+            
+            <!-- Color Palette Test -->
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold mb-6 text-center">Color Palette Test</h3>
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-red-500 rounded-lg"></div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-blue-500 rounded-lg"></div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-green-500 rounded-lg"></div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-yellow-500 rounded-lg"></div>
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-purple-500 rounded-lg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
-        // 显示屏幕尺寸
-        function updateScreenSize() {
-            const indicator = document.getElementById('screen-size');
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            indicator.textContent = `${width}px × ${height}px`;
-        }
-        
-        window.addEventListener('resize', updateScreenSize);
-        updateScreenSize();
-        
-        // 激活cluster section的动画
-        document.querySelector('.cluster-visual-section').classList.add('active');
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    // 切换菜单状态
+                    mobileMenu.classList.toggle('hidden');
+                    
+                    // 汉堡菜单动画
+                    const bars = this.querySelectorAll('span');
+                    bars.forEach((bar, index) => {
+                        if (mobileMenu.classList.contains('hidden')) {
+                            // 恢复原始状态
+                            bar.style.transform = '';
+                            bar.style.opacity = '';
+                        } else {
+                            // 动画到X状态
+                            if (index === 0) {
+                                bar.style.transform = 'rotate(45deg) translate(5px, 5px)';
+                            } else if (index === 1) {
+                                bar.style.opacity = '0';
+                            } else if (index === 2) {
+                                bar.style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                            }
+                        }
+                    });
+                });
+
+                // 点击菜单链接时关闭菜单
+                mobileMenuLinks?.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        const bars = mobileMenuButton.querySelectorAll('span');
+                        bars.forEach(bar => {
+                            bar.style.transform = '';
+                            bar.style.opacity = '';
+                        });
+                    });
+                });
+            }
+        });
     </script>
 </body>
 </html> 
