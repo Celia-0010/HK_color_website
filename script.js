@@ -369,15 +369,15 @@ function initClusterSwitcher() {
     const clusterImg = document.getElementById('cluster-image');
     const clusterBarImg = document.getElementById('cluster-barplot-img');
     const clusterBtns = document.querySelectorAll('.cluster-btn');
-    const gsvA = document.getElementById('gsv-img-a');
-    const gsvB = document.getElementById('gsv-img-b');
+    const gsvAImgs = document.querySelectorAll('.gsv-img-a');
+    const gsvBImgs = document.querySelectorAll('.gsv-img-b');
     
     console.log('Cluster switcher elements found:', {
         clusterImg: !!clusterImg,
         clusterBarImg: !!clusterBarImg,
         clusterBtns: clusterBtns.length,
-        gsvA: !!gsvA,
-        gsvB: !!gsvB
+        gsvA: !!gsvAImgs.length,
+        gsvB: !!gsvBImgs.length
     });
     
     if (!clusterImg || !clusterBtns.length) {
@@ -421,11 +421,11 @@ function initClusterSwitcher() {
             }
             
             // Update GSV images
-            if (gsvA && gsvB) {
+            if (gsvAImgs.length && gsvBImgs.length) {
                 const gsvASrc = `GSVimages/${n}a.jpg`;
                 const gsvBSrc = `GSVimages/${n}b.jpg`;
-                gsvA.src = gsvASrc;
-                gsvB.src = gsvBSrc;
+                gsvAImgs.forEach(img => img.src = gsvASrc);
+                gsvBImgs.forEach(img => img.src = gsvBSrc);
                 console.log('Updated GSV images:', gsvASrc, gsvBSrc);
             }
             
