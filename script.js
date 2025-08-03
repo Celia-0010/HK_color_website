@@ -133,8 +133,17 @@ function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                // 特殊处理预测文本的从左到右动画
+                if (entry.target.dataset.animate && entry.target.dataset.animate.startsWith('prediction-')) {
+                    const delay = parseInt(entry.target.dataset.animate.split('-')[1]) * 200; // 200ms间隔
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, delay);
+                } else {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
             }
         });
     }, observerOptions);

@@ -198,15 +198,15 @@
                     <img src="cluster/cluster_1_map.svg" alt="Cluster Image" id="cluster-image" class="w-full h-auto">
                 </div>
                 <div class="lg:col-span-1 space-y-8">
-                    <div>
+                    <div class="flex flex-col md:block">
                         <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="w-[75%] md:w-full h-auto">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
-                            <img src="GSVimages/1a.jpg" id="gsv-img-a" class="w-full h-full object-cover" alt="GSV 1a">
-                        </div>
-                        <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
-                            <img src="GSVimages/1b.jpg" id="gsv-img-b" class="w-full h-full object-cover" alt="GSV 1b">
+                        <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mt-4 md:mt-8">
+                            <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                                <img src="GSVimages/1a.jpg" id="gsv-img-a" class="w-full h-full object-cover" alt="GSV 1a">
+                            </div>
+                            <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                                <img src="GSVimages/1b.jpg" id="gsv-img-b" class="w-full h-full object-cover" alt="GSV 1b">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -226,23 +226,23 @@
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <div class="text-center p-4 sm:p-6">
-                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-georgia max-w-sm mx-auto">
-                        Model performance improves as buffer size increases from 200m to 1000m, with <span class="text-2xl font-semibold text-black font-georgia">800m</span> being optimal to capture the relationship.
-                    </p>
-                </div>
-                <div class="text-center p-4 sm:p-6">
-                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-georgia max-w-sm mx-auto">
-                        The model with color features alone achieves an R² of <span class="text-2xl font-semibold text-black font-georgia">0.5553</span>, outperforming the 0.5059 obtained with semantic features alone.
-                    </p>
-                </div>
-                <div class="text-center p-4 sm:p-6">
-                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-georgia max-w-sm mx-auto">
-                        Adding color features increases the R² of the base model with housing location and accessibility from 0.6085 to <span class="text-2xl font-semibold text-black font-georgia">0.6253</span>.
-                    </p>
-                </div>
-            </div>
+                         <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                 <div class="text-center p-4 sm:p-6">
+                     <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-georgia max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-1">
+                         Model performance improves as buffer size increases from 200m to 1000m, with <span class="text-2xl font-semibold text-black font-georgia">800m</span> being optimal to capture the relationship.
+                     </p>
+                 </div>
+                 <div class="text-center p-4 sm:p-6">
+                     <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-georgia max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-2">
+                         The model with color features alone achieves an R² of <span class="text-2xl font-semibold text-black font-georgia">0.5553</span>, outperforming the 0.5059 obtained with semantic features alone.
+                     </p>
+                 </div>
+                 <div class="text-center p-4 sm:p-6">
+                     <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-georgia max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-3">
+                         Adding color features increases the R² of the base model with housing location and accessibility from 0.6085 to <span class="text-2xl font-semibold text-black font-georgia">0.6253</span>.
+                     </p>
+                 </div>
+             </div>
 
     <!-- Footer -->
     <section class="py-16 bg-white">
