@@ -448,10 +448,30 @@ function generateColorPalette() {
         img.src = `22colors/${i}.svg`;
         img.alt = `Color ${i}`;
         img.className = 'w-full h-full object-cover opacity-0 transform translate-y-8 transition-all duration-700';
-        img.style.animationDelay = `${i * 0.12}s`;
         
         colorItem.appendChild(img);
         colorContainer.appendChild(colorItem);
+    }
+    
+    // 使用Intersection Observer触发颜色动画
+    const colorsSection = document.querySelector('#colors');
+    if (colorsSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const colorImages = colorContainer.querySelectorAll('img');
+                    colorImages.forEach((img, index) => {
+                        setTimeout(() => {
+                            img.style.opacity = '1';
+                            img.style.transform = 'translateY(0)';
+                        }, index * 120); // 每120ms触发一个
+                    });
+                    observer.disconnect(); // 只触发一次
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(colorsSection);
     }
 }
 
