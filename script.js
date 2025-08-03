@@ -121,28 +121,7 @@ function onWindowResize() {
     }
 }
 
-// 平滑滚动
-function initSmoothScroll() {
-    const links = document.querySelectorAll('a[href^="#"]');
-    
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70; // 考虑导航栏高度
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
+
 
 // 滚动动画
 function initScrollAnimations() {
@@ -320,108 +299,9 @@ function showAboutLinesOnScroll() {
     lines.forEach(line => observer.observe(line));
 }
 
-// 移动端菜单功能
-function initMobileMenu() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
 
-    if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function() {
-            // 切换菜单状态
-            mobileMenu.classList.toggle('hidden');
-            
-            // 汉堡菜单动画
-            const bars = this.querySelectorAll('span');
-            bars.forEach((bar, index) => {
-                if (mobileMenu.classList.contains('hidden')) {
-                    // 恢复原始状态
-                    bar.style.transform = '';
-                    bar.style.opacity = '';
-                } else {
-                    // 动画到X状态
-                    if (index === 0) {
-                        bar.style.transform = 'rotate(45deg) translate(5px, 5px)';
-                    } else if (index === 1) {
-                        bar.style.opacity = '0';
-                    } else if (index === 2) {
-                        bar.style.transform = 'rotate(-45deg) translate(7px, -6px)';
-                    }
-                }
-            });
-        });
 
-        // 点击菜单链接时关闭菜单
-        mobileMenuLinks?.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                const bars = mobileMenuButton.querySelectorAll('span');
-                bars.forEach(bar => {
-                    bar.style.transform = '';
-                    bar.style.opacity = '';
-                });
-            });
-        });
-    }
-}
 
-// Navigation functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('a[href^="#"]');
-
-    console.log('Navigation elements found:', {
-        navLinks: navLinks.length
-    });
-
-    // Smooth scrolling for navigation links
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            console.log('Scrolling to:', targetId, 'found:', !!targetSection);
-            
-            if (targetSection) {
-                // 使用scrollIntoView方法，这是最可靠的方法
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // 手动调整位置以考虑固定导航栏
-                setTimeout(() => {
-                    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-                    const navbarHeight = 64; // 导航栏高度
-                    window.scrollTo(0, currentScroll - navbarHeight);
-                }, 100);
-            }
-        });
-    });
-});
-
-// 初始化导航栏滚动效果
-function initNavbarScroll() {
-    const navbar = document.querySelector('nav');
-    if (!navbar) return;
-    
-    let lastScrollTop = 0;
-    
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // 添加/移除背景色
-        if (scrollTop > 50) {
-            navbar.classList.add('bg-white/95');
-            navbar.classList.remove('bg-white/80');
-        } else {
-            navbar.classList.remove('bg-white/95');
-            navbar.classList.add('bg-white/80');
-        }
-        
-        lastScrollTop = scrollTop;
-    });
-}
 
 // 初始化联系表单
 function initContactForm() {
@@ -483,7 +363,18 @@ function initClusterSwitcher() {
     const gsvA = document.getElementById('gsv-img-a');
     const gsvB = document.getElementById('gsv-img-b');
     
-    if (!clusterImg || !clusterBtns.length) return;
+    console.log('Cluster switcher elements found:', {
+        clusterImg: !!clusterImg,
+        clusterBarImg: !!clusterBarImg,
+        clusterBtns: clusterBtns.length,
+        gsvA: !!gsvA,
+        gsvB: !!gsvB
+    });
+    
+    if (!clusterImg || !clusterBtns.length) {
+        console.error('Required cluster elements not found');
+        return;
+    }
     
     clusterBtns.forEach((btn, idx) => {
         btn.addEventListener('click', function() {
@@ -491,18 +382,42 @@ function initClusterSwitcher() {
             const percentage = this.getAttribute('data-percentage');
             const n = idx + 1;
             
+            console.log('Cluster button clicked:', {
+                buttonIndex: idx,
+                imgName: imgName,
+                percentage: percentage,
+                clusterNumber: n
+            });
+            
             // Update cluster map image
-            clusterImg.src = 'cluster/' + imgName;
+            const newClusterSrc = 'cluster/' + imgName;
+            clusterImg.src = newClusterSrc;
+            console.log('Updated cluster map src:', newClusterSrc);
             
             // Update bar chart image
             if (clusterBarImg) {
-                clusterBarImg.src = `cluster_bar/cluster_bar_plot_cluster${n}.svg`;
+                const newBarSrc = `cluster_bar/cluster_bar_plot_cluster${n}.svg`;
+                clusterBarImg.src = newBarSrc;
+                console.log('Updated bar chart src:', newBarSrc);
+                
+                // Add error handling for bar chart
+                clusterBarImg.onerror = function() {
+                    console.error('Failed to load bar chart:', newBarSrc);
+                };
+                clusterBarImg.onload = function() {
+                    console.log('Bar chart loaded successfully:', newBarSrc);
+                };
+            } else {
+                console.error('Cluster bar image element not found');
             }
             
             // Update GSV images
             if (gsvA && gsvB) {
-                gsvA.src = `GSVimages/${n}a.jpg`;
-                gsvB.src = `GSVimages/${n}b.jpg`;
+                const gsvASrc = `GSVimages/${n}a.jpg`;
+                const gsvBSrc = `GSVimages/${n}b.jpg`;
+                gsvA.src = gsvASrc;
+                gsvB.src = gsvBSrc;
+                console.log('Updated GSV images:', gsvASrc, gsvBSrc);
             }
             
             // Update button states
@@ -532,6 +447,41 @@ function initClusterSwitcher() {
         clusterBtns[0].classList.add('active', 'text-black', 'font-semibold');
         clusterBtns[0].classList.remove('text-gray-600');
     }
+    
+    // 测试文件是否存在
+    testClusterFiles();
+}
+
+// 测试cluster文件是否存在
+function testClusterFiles() {
+    const testFiles = [
+        'cluster/cluster_1_map.svg',
+        'cluster/cluster_2_map.svg',
+        'cluster/cluster_3_map.svg',
+        'cluster/cluster_4_map.svg',
+        'cluster/cluster_5_map.svg',
+        'cluster/cluster_6_map.svg',
+        'cluster_bar/cluster_bar_plot_cluster1.svg',
+        'cluster_bar/cluster_bar_plot_cluster2.svg',
+        'cluster_bar/cluster_bar_plot_cluster3.svg',
+        'cluster_bar/cluster_bar_plot_cluster4.svg',
+        'cluster_bar/cluster_bar_plot_cluster5.svg',
+        'cluster_bar/cluster_bar_plot_cluster6.svg'
+    ];
+    
+    testFiles.forEach(file => {
+        fetch(file)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`✅ File exists: ${file}`);
+                } else {
+                    console.error(`❌ File not found: ${file}`);
+                }
+            })
+            .catch(error => {
+                console.error(`❌ Error loading file: ${file}`, error);
+            });
+    });
 }
 
 // Weather button switching functionality with percentage display
@@ -580,19 +530,84 @@ function initWeatherSwitcher() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - Initializing all features');
+    
     // 初始化所有功能
-    initThreeJS();
-    initScrollAnimations();
-    initNavbarScroll();
-    initCounterAnimation();
-    initContactForm();
-    initParallaxEffect();
-    initColorCubeInteraction();
-    initButtonEffects();
-    initMobileMenu();
-    generateColorPalette();
-    initClusterSwitcher();
-    initWeatherSwitcher();
+    try {
+        initThreeJS();
+        console.log('✅ ThreeJS initialized');
+    } catch (e) {
+        console.error('❌ ThreeJS initialization failed:', e);
+    }
+    
+    try {
+        initScrollAnimations();
+        console.log('✅ Scroll animations initialized');
+    } catch (e) {
+        console.error('❌ Scroll animations initialization failed:', e);
+    }
+    
+
+    
+    try {
+        initCounterAnimation();
+        console.log('✅ Counter animation initialized');
+    } catch (e) {
+        console.error('❌ Counter animation initialization failed:', e);
+    }
+    
+    try {
+        initContactForm();
+        console.log('✅ Contact form initialized');
+    } catch (e) {
+        console.error('❌ Contact form initialization failed:', e);
+    }
+    
+    try {
+        initParallaxEffect();
+        console.log('✅ Parallax effect initialized');
+    } catch (e) {
+        console.error('❌ Parallax effect initialization failed:', e);
+    }
+    
+    try {
+        initColorCubeInteraction();
+        console.log('✅ Color cube interaction initialized');
+    } catch (e) {
+        console.error('❌ Color cube interaction initialization failed:', e);
+    }
+    
+    try {
+        initButtonEffects();
+        console.log('✅ Button effects initialized');
+    } catch (e) {
+        console.error('❌ Button effects initialization failed:', e);
+    }
+    
+
+    
+    try {
+        generateColorPalette();
+        console.log('✅ Color palette generated');
+    } catch (e) {
+        console.error('❌ Color palette generation failed:', e);
+    }
+    
+    try {
+        initClusterSwitcher();
+        console.log('✅ Cluster switcher initialized');
+    } catch (e) {
+        console.error('❌ Cluster switcher initialization failed:', e);
+    }
+    
+    try {
+        initWeatherSwitcher();
+        console.log('✅ Weather switcher initialized');
+    } catch (e) {
+        console.error('❌ Weather switcher initialization failed:', e);
+    }
+    
+    console.log('✅ All features initialized successfully');
     
     // 启动打字机动画，动画结束后设置 hasTitleAnimated
     var titleText = "AUTOMATED URBAN COLOR PALETTE GENERATION\n";
