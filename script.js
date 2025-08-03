@@ -1,10 +1,27 @@
 // 全局变量
 let scene, camera, renderer, particles;
 let mouseX = 0, mouseY = 0;
-let windowHalfX = window.innerWidth / 2;
+let windowHalfX = window.innerWidth / 2; // 恢复使用实际窗口宽度
 let windowHalfY = window.innerHeight / 2;
 let hasUserScrolled = false;
 let hasTitleAnimated = false;
+
+// 获取实际显示尺寸的函数
+function getDisplaySize() {
+    const container = document.querySelector('.fixed-width-container');
+    if (!container) {
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+    }
+    
+    const rect = container.getBoundingClientRect();
+    return {
+        width: rect.width,
+        height: rect.height
+    };
+}
 
 // 初始化Three.js背景
 function initThreeJS() {
@@ -14,8 +31,11 @@ function initThreeJS() {
     // 创建场景
     scene = new THREE.Scene();
 
+    // 获取显示尺寸
+    const displaySize = getDisplaySize();
+    
     // 创建相机
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+    camera = new THREE.PerspectiveCamera(75, displaySize.width / displaySize.height, 1, 1000);
     camera.position.z = 500;
 
     // 创建渲染器
@@ -24,7 +44,7 @@ function initThreeJS() {
         alpha: true,
         antialias: true 
     });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(displaySize.width, displaySize.height);
     renderer.setPixelRatio(window.devicePixelRatio);
 
     // 创建粒子系统
@@ -99,13 +119,14 @@ function animate() {
 
 // 窗口大小调整
 function onWindowResize() {
-    windowHalfX = window.innerWidth / 2;
-    windowHalfY = window.innerHeight / 2;
+    const displaySize = getDisplaySize();
+    windowHalfX = displaySize.width / 2;
+    windowHalfY = displaySize.height / 2;
 
     if (camera && renderer) {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = displaySize.width / displaySize.height;
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(displaySize.width, displaySize.height);
     }
 }
 

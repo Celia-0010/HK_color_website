@@ -1,41 +1,31 @@
-/* Mobile Restriction */
-.mobile-restriction {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+/* Fixed Width Container - 自适应屏幕宽度 */
+.fixed-width-container {
     width: 100%;
-    height: 100vh;
-    background-color: #f8f9fa;
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    min-height: 100vh;
 }
 
-.mobile-restriction-content {
-    max-width: 400px;
-    padding: 2rem;
+/* 确保body和html支持缩放 */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    background: white;
 }
 
-.mobile-restriction-content h2 {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #7b7b7b;
-    margin-bottom: 1rem;
-    line-height: 1.4;
-}
-
-.mobile-restriction-content p {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 1rem;
-    color: #868686;
-    line-height: 1.5;
+/* 移除移动端限制 */
+.mobile-restriction {
+    display: none !important;
 }
 
 .main-content {
-    display: block;
+    display: block !important;
 }
 
 /* Navigation */
@@ -51,7 +41,7 @@
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
@@ -153,7 +143,7 @@ body {
 /* 英雄区域 */
 .hero {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   position: relative;
   overflow: hidden;
   background: #fff;
@@ -166,7 +156,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background: 
     linear-gradient(180deg, 
@@ -178,6 +168,7 @@ body {
     );
   pointer-events: none;
   z-index: 1;
+  transform: translateX(calc((100vw - 100%) / 2));
 }
 
 .hero-content {
@@ -829,158 +820,7 @@ body {
     }
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0.3rem 0;
-    }
-    
-    .nav-container {
-        padding: 0 1rem;
-        justify-content: space-between;
-    }
-    
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 50px;
-        flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.95);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 2rem 0;
-        gap: 1rem;
-    }
-    
-    .nav-menu.active {
-        left: 0;
-    }
-    
-    .nav-item {
-        margin: 1rem 0;
-    }
-    
-    .nav-link {
-        font-size: 1rem;
-    }
-    
-    .hamburger {
-        display: flex;
-        position: static;
-    }
-    
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-    
-    .hero-content {
-        padding: 0 1rem;
-        max-width: 100%;
-    }
-    
-    .hero-tagline {
-        margin-bottom: 2rem;
-    }
-    
-    .tagline-text {
-        font-size: 0.9rem;
-        padding: 0.4rem 1.2rem;
-    }
-    
-    .hero-title {
-        font-size: 3rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-    
-
-    
-    .about-line {
-        font-size: 1.25rem;
-    }
-    
-    .colors22-header {
-        padding: 0 1rem;
-        margin-bottom: 2rem;
-    }
-    
-    .colors22-title {
-        font-size: 2.5rem;
-    }
-    
-    .colors22-subtitle {
-        font-size: 1rem;
-    }
-    
-    .weather-split-container {
-        flex-direction: column;
-        gap: 40px;
-        padding: 0 1rem;
-    }
-    
-    .weather-left-content {
-        flex: 0 0 auto;
-        text-align: center;
-    }
-    
-    .weather-title {
-        font-size: 2.5rem;
-        text-align: center;
-    }
-    
-    .weather-subtitle {
-        font-size: 1rem;
-        text-align: center;
-    }
-    
-    .weather-right-content {
-        flex: 0 0 auto;
-    }
-    
-    .cluster-header {
-        padding: 0 1rem;
-        margin-bottom: 3rem;
-    }
-    
-    .cluster-title {
-        font-size: 2.5rem;
-    }
-    
-    .cluster-subtitle {
-        font-size: 1rem;
-    }
-    
-    .showcase-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .tech-stats {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .section-title {
-        font-size: 2rem;
-    }
-}
+/* 移除原有的移动端响应式样式，因为现在使用整体缩放方案 */
 
 /* 滚动条样式 */
 ::-webkit-scrollbar {
@@ -1161,11 +1001,11 @@ body {
 .colors22-bar {
   display: flex;
   flex-direction: row;
-  gap: 7px;
+  gap: 0.5vw;
   justify-content: center;
   align-items: flex-end;
   width: 100%;
-  max-width: 1800px;
+  max-width: 100%;
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none; /* Firefox */
@@ -1186,8 +1026,10 @@ body {
 }
 
 .color22-img {
-  width: 45px;
-  height: 45px;
+  width: 3vw;
+  height: 3vw;
+  max-width: 45px;
+  max-height: 45px;
   object-fit: cover;
   opacity: 0;
   transform: translateY(30px);
@@ -1345,7 +1187,7 @@ body {
   justify-content: center;
   gap: 0px !important;
   width: 100%;
-  max-width: 1700px;
+  max-width: 100%;
   margin: 0 auto;
   opacity: 0;
   transform: translateY(40px);
@@ -1361,7 +1203,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 90px;
+  gap: 6vw;
   margin-top: -40px; /* 向上移动按钮 */
   margin-bottom: 90px;
   width: max-content;
@@ -1372,8 +1214,9 @@ body {
 }
 
 .cluster-barplot-frame {
-  width: 450px;
-  height: 450px;
+  width: 30%;
+  height: auto;
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1381,8 +1224,8 @@ body {
   margin-right: 0px !important;
 }
 .cluster-barplot-img {
-  width: 410px;
-  height: 410px;
+  width: 90%;
+  height: 90%;
   object-fit: contain;
   background: #fff;
   box-shadow: none;
@@ -1391,9 +1234,10 @@ body {
   margin-left: -30px !important;
 }
 .cluster-image-frame {
-  width: 720px !important;
-  max-width: 100vw !important;
-  height: 500px !important;
+  width: 50% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1.44;
   margin-right: 0px !important;
   margin-top: -50px !important;
 } 
@@ -1431,8 +1275,10 @@ body {
   margin-top: 24px;
 }
 .gsv-square {
-  width: 130px;
-  height: 130px;
+  width: 8vw;
+  height: 8vw;
+  max-width: 130px;
+  max-height: 130px;
   background: #eee;
   display: flex;
   align-items: center;
@@ -1519,7 +1365,7 @@ body {
 .sankey-split-container {
     display: flex;
     width: 100%;
-    max-width: 1300px;
+    max-width: 100%;
     margin: 0 auto;
     gap: 0px;
     align-items: center;
@@ -1574,7 +1420,8 @@ body {
 
 .sankey-right-content {
     flex: 0 0 75%;
-    height: 650px;
+    height: 50vh;
+    max-height: 650px;
     position: relative;
     z-index: 0;
     margin-left: 22px;
@@ -1669,69 +1516,7 @@ body {
 
 
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .sankey-section {
-        padding: 40px 0 0 0;
-    }
-    
-    .sankey-split-container {
-        flex-direction: column;
-        gap: 40px;
-        padding: 0 1rem;
-    }
-    
-    .sankey-left-content {
-        flex: 0 0 auto;
-        text-align: center;
-    }
-    
-    .sankey-title {
-        font-size: 2.5rem;
-        text-align: center;
-    }
-    
-    .sankey-description {
-        font-size: 1rem;
-        text-align: center;
-    }
-    
-    .sankey-hover-text {
-        font-size: 1rem;
-        text-align: center;
-        margin-top: 1.5rem;
-    }
-    
-    .sankey-right-content {
-        flex: 0 0 auto;
-        height: 600px;
-    }
-}
-
-@media (max-width: 480px) {
-    .sankey-visualization {
-        height: 90vh;
-    }
-}
-
-@media (max-width: 480px) {
-    .sankey-left-content {
-        padding: 0;
-    }
-    
-    .sankey-title {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .sankey-description {
-        font-size: 0.9rem;
-    }
-    
-    .sankey-right-content {
-        height: 500px;
-    }
-}
+/* 移除移动端响应式样式，使用整体缩放方案 */
 
 /* Image Section */
 .image-section {
@@ -1945,56 +1730,7 @@ body {
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-@media (max-width: 768px) {
-    .weather-switch-section {
-        padding: 40px 0;
-    }
-    
-    .weather-buttons {
-        gap: 15px;
-        margin-top: 20px;
-        justify-content: center;
-    }
-    
-    .weather-btn {
-        padding: 10px 20px;
-        font-size: 13px;
-    }
-    
-    .image-section {
-        padding: 40px 0;
-    }
-    
-    .image-split-container {
-        flex-direction: column;
-        gap: 30px;
-        padding: 0 1rem;
-    }
-    
-    .image-left-content {
-        flex: none;
-        width: 100%;
-    }
-    
-    .image-title,
-    .image-description {
-        top: 0;
-    }
-    
-    .image-title {
-        font-size: 1.8rem;
-        text-align: center;
-    }
-    
-    .image-description {
-        text-align: center;
-    }
-    
-    .image-right-content {
-        flex: none;
-        width: 100%;
-    }
-}
+/* 移除weather和image移动端样式 */
 
 /* Housing Price Prediction Section */
 .housing-prediction-section {
@@ -2099,41 +1835,7 @@ body {
     transform: translateY(0);
 }
 
-/* Mobile responsiveness for housing prediction section */
-@media (max-width: 768px) {
-    .housing-prediction-section {
-        padding: 4rem 0;
-    }
-
-    .housing-prediction-title {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .housing-prediction-subtitle {
-        font-size: 1.1rem;
-    }
-
-
-
-    .housing-prediction-groups {
-        flex-direction: column;
-        gap: 2rem;
-        padding: 0 1rem;
-    }
-
-    .prediction-group {
-        padding: 1rem;
-    }
-
-    .prediction-explanation p {
-        font-size: 1rem;
-    }
-
-    .highlight-data {
-        font-size: 1.2rem;
-    }
-}
+/* 移除housing prediction移动端样式 */
 
 .footer-simple {
     text-align: center;
@@ -2164,14 +1866,5 @@ body {
     color: #004499;
 }
 
-/* Mobile Device Restriction */
-@media (max-width: 768px) {
-    .mobile-restriction {
-        display: flex;
-    }
-    
-    .main-content {
-        display: none;
-    }
-}
+/* 移除移动端限制，现在支持移动端访问 */
 

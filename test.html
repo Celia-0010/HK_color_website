@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Width Container Test</title>
+    <style>
+        /* Fixed Width Container - 实现整体缩放效果 */
+        .fixed-width-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            transform-origin: top left;
+            position: relative;
+            background: white;
+            min-height: 100vh;
+        }
+
+        /* 响应式缩放 - 当屏幕宽度小于1200px时进行整体缩放 */
+        @media (max-width: 1200px) {
+            .fixed-width-container {
+                transform: scale(calc(100vw / 1200px));
+                width: 1200px;
+                max-width: none;
+                height: calc(100vh / calc(100vw / 1200px));
+                margin: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                overflow: hidden;
+            }
+            
+            /* 确保所有图片和元素在缩放时保持比例 */
+            .fixed-width-container img,
+            .fixed-width-container svg,
+            .fixed-width-container iframe {
+                max-width: none;
+                height: auto;
+            }
+            
+            /* 确保按钮和交互元素在缩放时正常工作 */
+            .fixed-width-container button,
+            .fixed-width-container a,
+            .fixed-width-container input {
+                transform: none;
+            }
+            
+            /* 确保文本在缩放时保持清晰 */
+            .fixed-width-container * {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        /* 确保body和html支持缩放 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            overflow-y: auto;
+            background: white;
+        }
+
+        /* 测试内容样式 */
+        .test-content {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .test-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+
+        .test-image {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+        }
+
+        .test-button {
+            padding: 1rem 2rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 1rem;
+        }
+
+        .test-button:hover {
+            background: #0056b3;
+        }
+
+        .screen-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            z-index: 1000;
+        }
+
+        .container-info {
+            background: rgba(255,0,0,0.1);
+            border: 2px solid red;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen-info" id="screen-info">
+        Screen: <span id="screen-width">-</span> x <span id="screen-height">-</span><br>
+        Container: <span id="container-width">-</span> x <span id="container-height">-</span><br>
+        Scale: <span id="scale-factor">-</span><br>
+        Max Width: <span id="max-width">-</span>
+    </div>
+
+    <div class="fixed-width-container">
+        <div class="container-info">
+            <strong>Container Info:</strong><br>
+            Width: <span id="container-actual-width">-</span><br>
+            Max Width: <span id="container-max-width">-</span><br>
+            Is Scaled: <span id="is-scaled">-</span>
+        </div>
+        
+        <div class="test-content">
+            <h1>Fixed Width Container Test</h1>
+            <p>This page tests the fixed width container with responsive scaling.</p>
+            <p><strong>Current behavior:</strong></p>
+            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li>On large screens (>1200px): Container uses 100% width up to 1200px max</li>
+                <li>On small screens (<1200px): Container scales down proportionally</li>
+                <li>All content maintains its original layout and proportions</li>
+            </ul>
+            
+            <div class="test-section">
+                <h2>Section 1 - Text Content</h2>
+                <p>This is a test paragraph with some text content. The text should remain readable and properly scaled when the browser window is resized.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+
+            <div class="test-section">
+                <h2>Section 2 - Images</h2>
+                <p>Testing image scaling:</p>
+                <img src="22colors/1.svg" alt="Test Image 1" class="test-image">
+                <img src="22colors/2.svg" alt="Test Image 2" class="test-image">
+            </div>
+
+            <div class="test-section">
+                <h2>Section 3 - Interactive Elements</h2>
+                <button class="test-button" onclick="alert('Button clicked!')">Test Button 1</button>
+                <button class="test-button" onclick="alert('Button clicked!')">Test Button 2</button>
+                <button class="test-button" onclick="alert('Button clicked!')">Test Button 3</button>
+            </div>
+
+            <div class="test-section">
+                <h2>Section 4 - Layout Test</h2>
+                <div style="display: flex; gap: 2rem; justify-content: center;">
+                    <div style="flex: 1; padding: 1rem; border: 1px solid #ccc;">
+                        <h3>Column 1</h3>
+                        <p>This is the first column of a flex layout.</p>
+                    </div>
+                    <div style="flex: 1; padding: 1rem; border: 1px solid #ccc;">
+                        <h3>Column 2</h3>
+                        <p>This is the second column of a flex layout.</p>
+                    </div>
+                    <div style="flex: 1; padding: 1rem; border: 1px solid #ccc;">
+                        <h3>Column 3</h3>
+                        <p>This is the third column of a flex layout.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 更新屏幕信息
+        function updateScreenInfo() {
+            const container = document.querySelector('.fixed-width-container');
+            const rect = container.getBoundingClientRect();
+            const scale = window.innerWidth < 1200 ? (window.innerWidth / 1200) : 1;
+            const computedStyle = window.getComputedStyle(container);
+            
+            document.getElementById('screen-width').textContent = window.innerWidth + 'px';
+            document.getElementById('screen-height').textContent = window.innerHeight + 'px';
+            document.getElementById('container-width').textContent = Math.round(rect.width) + 'px';
+            document.getElementById('container-height').textContent = Math.round(rect.height) + 'px';
+            document.getElementById('scale-factor').textContent = scale.toFixed(3);
+            document.getElementById('max-width').textContent = computedStyle.maxWidth;
+            
+            // 容器信息
+            document.getElementById('container-actual-width').textContent = Math.round(rect.width) + 'px';
+            document.getElementById('container-max-width').textContent = computedStyle.maxWidth;
+            document.getElementById('is-scaled').textContent = scale < 1 ? 'Yes' : 'No';
+        }
+
+        // 初始化
+        updateScreenInfo();
+        window.addEventListener('resize', updateScreenInfo);
+    </script>
+</body>
+</html> 

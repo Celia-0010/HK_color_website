@@ -10,289 +10,281 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <!-- Mobile Restriction Message -->
-    <div id="mobile-restriction" class="mobile-restriction">
-        <div class="mobile-restriction-content">
-            <h2>This website is not available on mobile devices.</h2>
-            <p>Please access it from a desktop or laptop.</p>
-        </div>
-    </div>
-
-    <!-- Main Content (hidden on mobile) -->
-    <div id="main-content" class="main-content">
-        <!-- Navigation -->
-        <nav class="navbar">
-        <div class="nav-container">
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#colors" class="nav-link">Colors</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#clusters" class="nav-link">Patterns</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#prediction" class="nav-link">Effectiveness</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+    <!-- Fixed Width Container -->
+    <div class="fixed-width-container">
+        <!-- Main Content -->
+        <div id="main-content" class="main-content">
+            <!-- Navigation -->
+            <nav class="navbar">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#colors" class="nav-link">Colors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#clusters" class="nav-link">Patterns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#prediction" class="nav-link">Effectiveness</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background-pattern"></div>
-        <div class="hero-content">
-            <div class="hero-tagline">
-                <span class="tagline-text">Hong Kong</span>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-background-pattern"></div>
+            <div class="hero-content">
+                <div class="hero-tagline">
+                    <span class="tagline-text">Hong Kong</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-main">Automated</span>
+                    <span class="title-accent">Urban Color Palette Generation</span>
+                </h1>
+                <div class="hero-subtitle">Using Google Street View Imagery and Vision-Language Models</div>
             </div>
-            <h1 class="hero-title">
-                <span class="title-main">Automated</span>
-                <span class="title-accent">Urban Color Palette Generation</span>
-            </h1>
-            <div class="hero-subtitle">Using Google Street View Imagery and Vision-Language Models</div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="about-intro">
-            <div class="about-line">Urban color is a key component in shaping visual perception and identity,<br>yet it remains insufficiently quantified in large-scale urban analytics.</div>
-            <div class="about-line">We propose a systematic and scalable framework for generating urban color palettes by leveraging Google Street View imagery and vision-language models.</div>
-            <div class="about-line">75852 GSV images cross Hong Kong are processed using CLIP for zero-shot weather classification and Grounded SAM for open-vocabulary semantic segmentation.</div>
-            <div class="about-line">Our findings reveal distinct spatial patterns in urban color that reflect regional characteristics, and strong explanatory power of urban color features in housing price prediction.</div>
-        </div>
-    </section>
-
-    <!-- Conceptual Framework Section -->
-    <section class="conceptual-framework-section">
-        <div class="conceptual-framework-container">
-            <img src="conceptual_framework-02.svg" alt="Conceptual Framework" class="conceptual-framework-image">
-        </div>
-    </section>
-
-<!-- 22 Colors Palette Section -->
-<section id="colors" class="colors22-section">
-  <div class="colors22-header">
-    <h2 class="colors22-title">Representative Colors of Hong Kong</h2>
-    <div class="colors22-subtitle">Combining Incremental K-means clustering in the RGB color space <br>and Color Difference Formula in the CIELab color space, <br>we extract 22 representative colors of Hong Kong from all targeted pixels.</div>
-  </div>
-  <div class="colors22-bar">
-    <div class="color22-item">
-      <img src="22colors/1.svg" class="color22-img" alt="Color 1" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/2.svg" class="color22-img" alt="Color 2" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/3.svg" class="color22-img" alt="Color 3" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/4.svg" class="color22-img" alt="Color 4" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/5.svg" class="color22-img" alt="Color 5" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/6.svg" class="color22-img" alt="Color 6" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/7.svg" class="color22-img" alt="Color 7" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/8.svg" class="color22-img" alt="Color 8" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/9.svg" class="color22-img" alt="Color 9" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/10.svg" class="color22-img" alt="Color 10" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/11.svg" class="color22-img" alt="Color 11" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/12.svg" class="color22-img" alt="Color 12" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/13.svg" class="color22-img" alt="Color 13" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/14.svg" class="color22-img" alt="Color 14" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/15.svg" class="color22-img" alt="Color 15" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/16.svg" class="color22-img" alt="Color 16" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/17.svg" class="color22-img" alt="Color 17" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/18.svg" class="color22-img" alt="Color 18" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/19.svg" class="color22-img" alt="Color 19" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/20.svg" class="color22-img" alt="Color 20" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/21.svg" class="color22-img" alt="Color 21" />
-    </div>
-    <div class="color22-item">
-      <img src="22colors/22.svg" class="color22-img" alt="Color 22" />
-    </div>
-  </div>
-</section>
-
-
-
-<!-- Weather Switch Section -->
-<section class="weather-switch-section">
-  <div class="weather-split-container">
-    <div class="weather-left-content">
-      <h2 class="weather-title">Urban Color <br>Affected by Weather</h2>
-      <div class="weather-subtitle">
-        <b style="font-size:1.15em; color:#000;"><a href="https://github.com/openai/CLIP" target="_blank" rel="noopener noreferrer" style="color:#000;">CLIP</a></b> is used to classify GSV images according to weather conditions.
-        <br><br>
-        On cloudy days, muted-neutral and dark-earthy colors are more dominant, due to diffuse lighting.
-        <br><br>
-        On sunny days, soft-cool and light-vibrant colors are more prominent, enhanced by <br>direct sunlight. 
-        <br><br>
-      </div>
-      <div class="weather-buttons">
-        <button class="weather-btn active" data-weather="sunny" data-percentage="26%">Sunny</button>
-        <button class="weather-btn" data-weather="cloudy" data-percentage="74%">Cloudy</button>
-      </div>
-    </div>
-    <div class="weather-right-content">
-      <div class="weather-image-frame">
-        <img src="two_weather/sunnycolor-01.jpg" alt="Weather Image" id="weather-display-image" class="weather-display-image" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Sankey Visualization Section -->
-<section class="sankey-section">
-    <div class="sankey-split-container">
-        <div class="sankey-left-content">
-            <h2 class="sankey-title">Urban Color <br>Shaped by Semantics</h2>
-            <p class="sankey-description">
-              <b style="font-size:1.15em; color:#000;">
-                <a href="https://github.com/IDEA-Research/Grounded-Segment-Anything" target="_blank" rel="noopener noreferrer" style="color:#000;">Grounded SAM</a>
-              </b> is used to segment GSV images into 18 semantic classes.<br>
-              Each pixel of GSV images is assigned a semantic label, representing "what it is," and also assigned a color label, representing "what it looks like." This enables us to identify colors of specific semantics, as well as determine which semantics contribute to the presence of a color.
-            </p>
-            </p>
-            <p class="sankey-hover-text"><b>Hover or drag to explore →  </b></p>
-        </div>
-        <div class="sankey-right-content">
-            <iframe src="sankey_fullscreen.html" frameborder="0" width="100%" height="100%"></iframe>
-        </div>
-    </div>
-</section>
-
-<!-- Image Section -->
-<section class="image-section">
-    <div class="image-split-container">
-        <div class="image-left-content">
-            <div class="image-description">
-                <p><strong>Artificial backgrounds:</strong> <br>low-saturation browns and greys, reflecting material, age, or lighting exposure.</p>
-                <p><strong>Natural backgrounds:</strong> <br>light blue or nearly white colors from the sky, and green tones from vegetation and terrain.</p>
-                <p><strong>Static decorations:</strong> <br>greater color diversity with warm accent colors such as reds, oranges, and yellows, intended to attract attentions.</p>
-                <p><strong>Dynamic decorations:</strong> <br>the greatest hue variation and highest saturation, reflecting personal choices like clothing and vehicle paint.</p>
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="about-intro">
+                <div class="about-line">Urban color is a key component in shaping visual perception and identity,<br>yet it remains insufficiently quantified in large-scale urban analytics.</div>
+                <div class="about-line">We propose a systematic and scalable framework for generating urban color palettes by leveraging Google Street View imagery and vision-language models.</div>
+                <div class="about-line">75852 GSV images cross Hong Kong are processed using CLIP for zero-shot weather classification and Grounded SAM for open-vocabulary semantic segmentation.</div>
+                <div class="about-line">Our findings reveal distinct spatial patterns in urban color that reflect regional characteristics, and strong explanatory power of urban color features in housing price prediction.</div>
             </div>
-        </div>
-        <div class="image-right-content">
-            <div class="image-frame">
-                <img src="mosaic-02.svg" alt="Research Image" class="image-display">
+        </section>
+
+        <!-- Conceptual Framework Section -->
+        <section class="conceptual-framework-section">
+            <div class="conceptual-framework-container">
+                <img src="conceptual_framework-02.svg" alt="Conceptual Framework" class="conceptual-framework-image">
             </div>
+        </section>
+
+    <!-- 22 Colors Palette Section -->
+    <section id="colors" class="colors22-section">
+      <div class="colors22-header">
+        <h2 class="colors22-title">Representative Colors of Hong Kong</h2>
+        <div class="colors22-subtitle">Combining Incremental K-means clustering in the RGB color space <br>and Color Difference Formula in the CIELab color space, <br>we extract 22 representative colors of Hong Kong from all targeted pixels.</div>
+      </div>
+      <div class="colors22-bar">
+        <div class="color22-item">
+          <img src="22colors/1.svg" class="color22-img" alt="Color 1" />
         </div>
-    </div>
-</section>
-
-<!-- Cluster Visual Section: bar plot frame和map frame横向排列，按钮在上方居中 -->
-<section id="clusters" class="cluster-visual-section">
-  <div class="cluster-header">
-    <h2 class="cluster-title">Spatial Heterogeneity of Urban Color</h2>
-    <div class="cluster-subtitle">We perform clustering analysis based on the pixel ratios of 22 colors across all images. <br>Six dominant clusters are identified, demonstrating clear statistical and spatial patterns.</div>
-  </div>
-  <div class="cluster-barplot-btn-row">
-    <button class="cluster-btn active" data-img="cluster_1_map.svg" data-percentage="31.10%">I</button>
-    <button class="cluster-btn" data-img="cluster_2_map.svg" data-percentage="25.81%">II</button>
-    <button class="cluster-btn" data-img="cluster_3_map.svg" data-percentage="14.93%">III</button>
-    <button class="cluster-btn" data-img="cluster_4_map.svg" data-percentage="12.94%">IV</button>
-    <button class="cluster-btn" data-img="cluster_5_map.svg" data-percentage="10.29%">V</button>
-    <button class="cluster-btn" data-img="cluster_6_map.svg" data-percentage="4.92%">VI</button>
-  </div>
-  <div class="cluster-visual-flex-row">
-    <div class="cluster-image-frame">
-      <img src="cluster/cluster_1_map.svg" alt="Cluster Image" id="cluster-image" class="cluster-image" />
-    </div>
-    <div class="cluster-barplot-frame">
-      <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="cluster-barplot-img" />
-    </div>
-    <div class="gsv-pair-row">
-      <div class="gsv-square"><img src="GSVimages/1a.jpg" id="gsv-img-a" class="gsv-square-img" alt="GSV 1a" /></div>
-      <div class="gsv-square"><img src="GSVimages/1b.jpg" id="gsv-img-b" class="gsv-square-img" alt="GSV 1b" /></div>
-    </div>
-  </div>
-</section>
-
-<!-- Housing Price Prediction Section -->
-<section id="prediction" class="housing-prediction-section">
-  <div class="housing-prediction-header">
-    <h2 class="housing-prediction-title">Predicting Housing Prices <br>Using Urban Color Information</h2>
-    <div class="housing-prediction-subtitle">To assess the effectiveness of urban color features under controlled lighting conditions, <br>we conduct a housing price prediction task using only cloudy-day images with random forest regression.</div>
-  </div>
-  <div class="housing-prediction-content">
-
-    <div class="housing-prediction-groups">
-      <div class="prediction-group">
-        <div class="prediction-explanation">
-          <p class="prediction-text">Model performance improves as buffer size increases from 200m to 1000m, with <span class="highlight-data">800m</span> being optimal to capture the relationship.</p>
+        <div class="color22-item">
+          <img src="22colors/2.svg" class="color22-img" alt="Color 2" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/3.svg" class="color22-img" alt="Color 3" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/4.svg" class="color22-img" alt="Color 4" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/5.svg" class="color22-img" alt="Color 5" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/6.svg" class="color22-img" alt="Color 6" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/7.svg" class="color22-img" alt="Color 7" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/8.svg" class="color22-img" alt="Color 8" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/9.svg" class="color22-img" alt="Color 9" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/10.svg" class="color22-img" alt="Color 10" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/11.svg" class="color22-img" alt="Color 11" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/12.svg" class="color22-img" alt="Color 12" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/13.svg" class="color22-img" alt="Color 13" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/14.svg" class="color22-img" alt="Color 14" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/15.svg" class="color22-img" alt="Color 15" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/16.svg" class="color22-img" alt="Color 16" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/17.svg" class="color22-img" alt="Color 17" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/18.svg" class="color22-img" alt="Color 18" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/19.svg" class="color22-img" alt="Color 19" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/20.svg" class="color22-img" alt="Color 20" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/21.svg" class="color22-img" alt="Color 21" />
+        </div>
+        <div class="color22-item">
+          <img src="22colors/22.svg" class="color22-img" alt="Color 22" />
         </div>
       </div>
-      
-      <div class="prediction-group">
-        <div class="prediction-explanation">
-          <p class="prediction-text">The model with color features alone achieves an R² of <span class="highlight-data">0.5553</span>, outperforming the 0.5059 obtained with semantic features alone.</p>
-        </div>
-      </div>
-      <div class="prediction-group">
-        <div class="prediction-explanation">
-          <p class="prediction-text">Adding color features increases the R² of the base model with housing location and accessibility from 0.6085 to <span class="highlight-data">0.6253</span>.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <!-- Footer -->
-    <section class="tech-showcase">
-        <div class="footer-simple">
-            <p>Student: Li Xiaoyu | Supervisor: Prof. Zhou Yulun</p>
-            <p>2024-2025 MUA | The University of Hong Kong</p>
-            <p>Code and dataset available <a href="https://github.com/Celia-0010/Urban_color_palette" target="_blank">Here</a></p>
-        </div>
     </section>
 
 
 
+    <!-- Weather Switch Section -->
+    <section class="weather-switch-section">
+      <div class="weather-split-container">
+        <div class="weather-left-content">
+          <h2 class="weather-title">Urban Color <br>Affected by Weather</h2>
+          <div class="weather-subtitle">
+            <b style="font-size:1.15em; color:#000;"><a href="https://github.com/openai/CLIP" target="_blank" rel="noopener noreferrer" style="color:#000;">CLIP</a></b> is used to classify GSV images according to weather conditions.
+            <br><br>
+            On cloudy days, muted-neutral and dark-earthy colors are more dominant, due to diffuse lighting.
+            <br><br>
+            On sunny days, soft-cool and light-vibrant colors are more prominent, enhanced by <br>direct sunlight. 
+            <br><br>
+          </div>
+          <div class="weather-buttons">
+            <button class="weather-btn active" data-weather="sunny" data-percentage="26%">Sunny</button>
+            <button class="weather-btn" data-weather="cloudy" data-percentage="74%">Cloudy</button>
+          </div>
+        </div>
+        <div class="weather-right-content">
+          <div class="weather-image-frame">
+            <img src="two_weather/sunnycolor-01.jpg" alt="Weather Image" id="weather-display-image" class="weather-display-image" />
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Sankey Visualization Section -->
+    <section class="sankey-section">
+        <div class="sankey-split-container">
+            <div class="sankey-left-content">
+                <h2 class="sankey-title">Urban Color <br>Shaped by Semantics</h2>
+                <p class="sankey-description">
+                  <b style="font-size:1.15em; color:#000;">
+                    <a href="https://github.com/IDEA-Research/Grounded-Segment-Anything" target="_blank" rel="noopener noreferrer" style="color:#000;">Grounded SAM</a>
+                  </b> is used to segment GSV images into 18 semantic classes.<br>
+                  Each pixel of GSV images is assigned a semantic label, representing "what it is," and also assigned a color label, representing "what it looks like." This enables us to identify colors of specific semantics, as well as determine which semantics contribute to the presence of a color.
+                </p>
+                </p>
+                <p class="sankey-hover-text"><b>Hover or drag to explore →  </b></p>
+            </div>
+            <div class="sankey-right-content">
+                <iframe src="sankey_fullscreen.html" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+    </section>
 
+    <!-- Image Section -->
+    <section class="image-section">
+        <div class="image-split-container">
+            <div class="image-left-content">
+                <div class="image-description">
+                    <p><strong>Artificial backgrounds:</strong> <br>low-saturation browns and greys, reflecting material, age, or lighting exposure.</p>
+                    <p><strong>Natural backgrounds:</strong> <br>light blue or nearly white colors from the sky, and green tones from vegetation and terrain.</p>
+                    <p><strong>Static decorations:</strong> <br>greater color diversity with warm accent colors such as reds, oranges, and yellows, intended to attract attentions.</p>
+                    <p><strong>Dynamic decorations:</strong> <br>the greatest hue variation and highest saturation, reflecting personal choices like clothing and vehicle paint.</p>
+                </div>
+            </div>
+            <div class="image-right-content">
+                <div class="image-frame">
+                    <img src="mosaic-02.svg" alt="Research Image" class="image-display">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cluster Visual Section: bar plot frame和map frame横向排列，按钮在上方居中 -->
+    <section id="clusters" class="cluster-visual-section">
+      <div class="cluster-header">
+        <h2 class="cluster-title">Spatial Heterogeneity of Urban Color</h2>
+        <div class="cluster-subtitle">We perform clustering analysis based on the pixel ratios of 22 colors across all images. <br>Six dominant clusters are identified, demonstrating clear statistical and spatial patterns.</div>
+      </div>
+      <div class="cluster-barplot-btn-row">
+        <button class="cluster-btn active" data-img="cluster_1_map.svg" data-percentage="31.10%">I</button>
+        <button class="cluster-btn" data-img="cluster_2_map.svg" data-percentage="25.81%">II</button>
+        <button class="cluster-btn" data-img="cluster_3_map.svg" data-percentage="14.93%">III</button>
+        <button class="cluster-btn" data-img="cluster_4_map.svg" data-percentage="12.94%">IV</button>
+        <button class="cluster-btn" data-img="cluster_5_map.svg" data-percentage="10.29%">V</button>
+        <button class="cluster-btn" data-img="cluster_6_map.svg" data-percentage="4.92%">VI</button>
+      </div>
+      <div class="cluster-visual-flex-row">
+        <div class="cluster-image-frame">
+          <img src="cluster/cluster_1_map.svg" alt="Cluster Image" id="cluster-image" class="cluster-image" />
+        </div>
+        <div class="cluster-barplot-frame">
+          <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="cluster-barplot-img" />
+        </div>
+        <div class="gsv-pair-row">
+          <div class="gsv-square"><img src="GSVimages/1a.jpg" id="gsv-img-a" class="gsv-square-img" alt="GSV 1a" /></div>
+          <div class="gsv-square"><img src="GSVimages/1b.jpg" id="gsv-img-b" class="gsv-square-img" alt="GSV 1b" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Housing Price Prediction Section -->
+    <section id="prediction" class="housing-prediction-section">
+      <div class="housing-prediction-header">
+        <h2 class="housing-prediction-title">Predicting Housing Prices <br>Using Urban Color Information</h2>
+        <div class="housing-prediction-subtitle">To assess the effectiveness of urban color features under controlled lighting conditions, <br>we conduct a housing price prediction task using only cloudy-day images with random forest regression.</div>
+      </div>
+      <div class="housing-prediction-content">
+
+        <div class="housing-prediction-groups">
+          <div class="prediction-group">
+            <div class="prediction-explanation">
+              <p class="prediction-text">Model performance improves as buffer size increases from 200m to 1000m, with <span class="highlight-data">800m</span> being optimal to capture the relationship.</p>
+            </div>
+          </div>
+          
+          <div class="prediction-group">
+            <div class="prediction-explanation">
+              <p class="prediction-text">The model with color features alone achieves an R² of <span class="highlight-data">0.5553</span>, outperforming the 0.5059 obtained with semantic features alone.</p>
+            </div>
+          </div>
+          <div class="prediction-group">
+            <div class="prediction-explanation">
+              <p class="prediction-text">Adding color features increases the R² of the base model with housing location and accessibility from 0.6085 to <span class="highlight-data">0.6253</span>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <!-- Footer -->
+        <section class="tech-showcase">
+            <div class="footer-simple">
+                <p>Student: Li Xiaoyu | Supervisor: Prof. Zhou Yulun</p>
+                <p>2024-2025 MUA | The University of Hong Kong</p>
+                <p>Code and dataset available <a href="https://github.com/Celia-0010/Urban_color_palette" target="_blank">Here</a></p>
+            </div>
+        </section>
+
+    </div> <!-- End of main-content -->
+    </div> <!-- End of fixed-width-container -->
 
 
 <script>
