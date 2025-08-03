@@ -458,6 +458,7 @@ function generateColorPalette() {
 // Cluster image switcher with percentage display
 function initClusterSwitcher() {
     const clusterImg = document.getElementById('cluster-image');
+    const clusterBarImg = document.getElementById('cluster-barplot-img');
     const clusterBtns = document.querySelectorAll('.cluster-btn');
     const gsvA = document.getElementById('gsv-img-a');
     const gsvB = document.getElementById('gsv-img-b');
@@ -470,8 +471,15 @@ function initClusterSwitcher() {
             const percentage = this.getAttribute('data-percentage');
             const n = idx + 1;
             
-            // Update images
+            // Update cluster map image
             clusterImg.src = 'cluster/' + imgName;
+            
+            // Update bar chart image
+            if (clusterBarImg) {
+                clusterBarImg.src = `cluster_bar/cluster_bar_plot_cluster${n}.svg`;
+            }
+            
+            // Update GSV images
             if (gsvA && gsvB) {
                 gsvA.src = `GSVimages/${n}a.jpg`;
                 gsvB.src = `GSVimages/${n}b.jpg`;
