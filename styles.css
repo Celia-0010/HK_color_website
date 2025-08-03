@@ -1421,8 +1421,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 69vh;
     max-height: 800px;
+    min-height: 600px;
     position: relative;
     z-index: 0;
 }
@@ -1498,7 +1500,7 @@ body {
     background: white;
     border-radius: 12px;
     box-shadow: var(--shadow-soft);
-    overflow: visible;
+    overflow: hidden;
     height: 100%;
     position: relative;
     width: 80%;
@@ -1513,8 +1515,11 @@ body {
     height: 100%;
     display: block;
     object-fit: contain;
-    overflow: visible;
+    overflow: hidden;
     margin-left: 0px;
+    transform-origin: center center;
+    transform: scale(1);
+    transition: transform 0.3s ease;
 }
 
 
