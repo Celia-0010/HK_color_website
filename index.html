@@ -199,8 +199,18 @@
                 </div>
                 <div class="lg:col-span-1 space-y-8">
                     <div class="flex flex-col md:block">
-                        <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="w-[75%] md:w-full h-auto">
-                        <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mt-4 md:mt-8">
+                        <div class="flex items-center gap-4 md:block">
+                            <div class="flex flex-col gap-4 md:hidden order-1 md:order-none">
+                                <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden w-20 h-20">
+                                    <img src="GSVimages/1a.jpg" id="gsv-img-a" class="w-full h-full object-cover" alt="GSV 1a">
+                                </div>
+                                <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden w-20 h-20">
+                                    <img src="GSVimages/1b.jpg" id="gsv-img-b" class="w-full h-full object-cover" alt="GSV 1b">
+                                </div>
+                            </div>
+                            <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="w-[75%] md:w-full h-auto order-2 md:order-none">
+                        </div>
+                        <div class="hidden md:grid grid-cols-2 gap-4">
                             <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
                                 <img src="GSVimages/1a.jpg" id="gsv-img-a" class="w-full h-full object-cover" alt="GSV 1a">
                             </div>
