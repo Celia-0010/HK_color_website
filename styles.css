@@ -1356,16 +1356,14 @@ body {
 
 /* Sankey Section Styles */
 .sankey-section {
-    padding: 4rem 0;
-    background: white;
-    display: flex;
-    align-items: center;
+    padding: 10px 0 200px 0;
+    background: var(--background-light);
 }
 
 .sankey-split-container {
     display: flex;
     width: 100%;
-    max-width: 100%;
+    max-width: 1300px;
     margin: 0 auto;
     gap: 0px;
     align-items: center;
@@ -1420,11 +1418,13 @@ body {
 
 .sankey-right-content {
     flex: 0 0 75%;
-    height: 50vh;
-    max-height: 650px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 69vh;
+    max-height: 800px;
     position: relative;
     z-index: 0;
-    margin-left: 22px;
 }
 
 .sankey-legend {
@@ -1501,7 +1501,10 @@ body {
     overflow: visible;
     height: 100%;
     position: relative;
-    width: 100%; 
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sankey-visualization iframe {
