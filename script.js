@@ -358,17 +358,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Toggle mobile menu
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
+    console.log('Navigation elements found:', {
+        hamburger: !!hamburger,
+        navMenu: !!navMenu,
+        navLinks: navLinks.length
     });
+
+    // Toggle mobile menu
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Hamburger clicked');
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
 
     // Close mobile menu when clicking on a link
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+        link.addEventListener('click', function(e) {
+            console.log('Nav link clicked:', this.getAttribute('href'));
+            if (hamburger && navMenu) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
         });
     });
 
@@ -379,12 +393,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
             
+            console.log('Scrolling to:', targetId, 'found:', !!targetSection);
+            
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 60; // Account for fixed navbar
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
+                // 使用scrollIntoView方法，这是最可靠的方法
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
+                
+                // 手动调整位置以考虑固定导航栏
+                setTimeout(() => {
+                    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    const navbarHeight = 60; // 导航栏高度
+                    window.scrollTo(0, currentScroll - navbarHeight);
+                }, 100);
             }
         });
     });
@@ -418,27 +441,7 @@ function initNavbarScroll() {
     });
 }
 
-// 初始化移动端菜单
-function initMobileMenu() {
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('active');
-            this.classList.toggle('active');
-        });
-        
-        // 点击菜单项后关闭菜单
-        const menuItems = mobileMenu.querySelectorAll('a');
-        menuItems.forEach(item => {
-            item.addEventListener('click', function() {
-                mobileMenu.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-            });
-        });
-    }
-}
+// 移动端菜单功能已整合到主要的导航功能中
 
 // 初始化联系表单
 function initContactForm() {
@@ -456,10 +459,8 @@ function initContactForm() {
 document.addEventListener('DOMContentLoaded', function() {
     // 初始化所有功能
     initThreeJS();
-    initSmoothScroll();
     initScrollAnimations();
     initNavbarScroll();
-    initMobileMenu();
     initCounterAnimation();
     initContactForm();
     initParallaxEffect();

@@ -1,3 +1,8 @@
+/* 确保滚动行为正常工作 */
+html {
+    scroll-behavior: smooth;
+}
+
 /* Fixed Width Container - 自适应屏幕宽度 */
 .fixed-width-container {
     width: 100%;
@@ -349,7 +354,7 @@ body {
 /* 项目概述 */
 .about-section {
     background: #fff;
-    padding: 60px 0 200px 0;
+    padding: 100px 0 200px 0;
     margin-top: -10px;
   }
   
@@ -1140,7 +1145,7 @@ body {
 
 .cluster-visual-section {
   background: #fff;
-  padding: 35px 0 80px 0;
+  padding: 80px 0 80px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1917,7 +1922,7 @@ body {
 
 /* Housing Price Prediction Section */
 .housing-prediction-section {
-    padding: 7rem 0 10rem 0;
+    padding: 10rem 0 10rem 0;
     background: var(--background-light);
     position: relative;
     overflow: hidden;
@@ -2050,4 +2055,78 @@ body {
 }
 
 /* 移除移动端限制，现在支持移动端访问 */
+
+/* 导航栏移动端响应式样式 */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        flex-direction: column;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 2rem 0;
+        gap: 1rem;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-item {
+        margin: 1rem 0;
+    }
+    
+    .nav-link {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        display: block;
+    }
+    
+    .nav-link:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 5px;
+    }
+    
+    /* 汉堡菜单动画 */
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .hamburger {
+        right: 1rem;
+    }
+    
+    .nav-menu {
+        top: 50px;
+        padding: 1.5rem 0;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
 
