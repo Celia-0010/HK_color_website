@@ -34,6 +34,32 @@
         box-sizing: border-box;
         overflow-x: hidden;
       }
+      
+      /* Button interaction styles */
+      .weather-btn, .cluster-btn {
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .weather-btn:hover, .cluster-btn:hover {
+        transform: translateY(-2px);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        color: #000 !important;
+        font-weight: 600;
+      }
+      
+      .weather-btn.active, .cluster-btn.active {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 2px;
+        text-decoration-color: #000;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .weather-btn.active:hover, .cluster-btn.active:hover {
+        transform: translateY(-2px);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
     </style>
 </head>
 <body class="bg-white text-gray-900 font-georgia m-0 p-0">
@@ -220,7 +246,7 @@
                             </div>
                             <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="w-[75%] md:w-full h-auto order-1 md:order-none">
                         </div>
-                        <div class="hidden md:grid grid-cols-2 gap-4">
+                        <div class="hidden md:grid grid-cols-2 gap-4 max-w-xs mx-auto">
                             <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
                                 <img src="GSVimages/1a.jpg" class="w-full h-full object-cover gsv-img-a" alt="GSV 1a">
                             </div>
