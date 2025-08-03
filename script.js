@@ -331,7 +331,7 @@ function generateColorPalette() {
 
     for (let i = 1; i <= 22; i++) {
         const colorItem = document.createElement('div');
-        colorItem.className = 'w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 transition-transform duration-200 hover:scale-110 cursor-pointer';
+        colorItem.className = 'w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 transition-transform duration-200 hover:scale-110 cursor-pointer color-palette-item';
         
         const img = document.createElement('img');
         img.src = `22colors/${i}.svg`;

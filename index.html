@@ -60,6 +60,26 @@
         transform: translateY(-2px);
         text-shadow: 0 2px 4px rgba(0,0,0,0.2);
       }
+      
+      /* 22 GSV colors with rounded corners */
+      .color-palette-item {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+      }
+      
+      .color-palette-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      }
+      
+      .color-palette-item img {
+        border-radius: 12px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     </style>
 </head>
 <body class="bg-white text-gray-900 font-georgia m-0 p-0">
@@ -292,7 +312,7 @@
     </section>
 
     <!-- Footer -->
-    <section class="py-60 relative overflow-hidden bg-white w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] max-w-none" style="position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+    <section class="py-40 relative overflow-hidden bg-white w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] max-w-none" style="position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
         <div class="absolute inset-0 bg-gradient-to-t from-red-200/40 via-yellow-200/40 via-green-200/40 via-blue-200/40 to-white/40 pointer-events-none" style="background: linear-gradient(to top, rgba(252, 165, 165, 0.4) 0%, rgba(255, 242, 190, 0.4) 30%, rgba(197, 240, 212, 0.4) 55%, rgba(147, 197, 253, 0.4) 80%, rgba(255, 255, 255, 0.4) 100%);"></div>
         <div class="relative z-10 w-full text-center">
             <div class="space-y-12">
@@ -303,7 +323,10 @@
                     <p class="font-georgia text-sm text-gray-600 leading-relaxed">Student: Li Xiaoyu | Supervisor: Prof. Zhou Yulun</p>
                     <p class="font-georgia text-sm text-gray-600 leading-relaxed">2024-2025 MUA | The University of Hong Kong</p>
                 </div>
+            </div>
+        </div>
+    </section>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
-</html> 
+</html>
