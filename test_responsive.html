@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Test - Cluster Section</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-container {
+            max-width: 100%;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        .screen-size-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen-size-indicator" id="screen-size"></div>
+    
+    <div class="test-container">
+        <h1>Cluster Section Responsive Test</h1>
+        <p>调整浏览器窗口大小来测试响应式布局</p>
+        
+        <!-- Cluster Visual Section -->
+        <section id="clusters" class="cluster-visual-section">
+            <div class="cluster-header">
+                <h2 class="cluster-title">Spatial Heterogeneity of Urban Color</h2>
+                <div class="cluster-subtitle">We perform clustering analysis based on the pixel ratios of 22 colors across all images. <br>Six dominant clusters are identified, demonstrating clear statistical and spatial patterns.</div>
+            </div>
+            <div class="cluster-barplot-btn-row">
+                <button class="cluster-btn active" data-img="cluster_1_map.svg" data-percentage="31.10%">I</button>
+                <button class="cluster-btn" data-img="cluster_2_map.svg" data-percentage="25.81%">II</button>
+                <button class="cluster-btn" data-img="cluster_3_map.svg" data-percentage="14.93%">III</button>
+                <button class="cluster-btn" data-img="cluster_4_map.svg" data-percentage="12.94%">IV</button>
+                <button class="cluster-btn" data-img="cluster_5_map.svg" data-percentage="10.29%">V</button>
+                <button class="cluster-btn" data-img="cluster_6_map.svg" data-percentage="4.92%">VI</button>
+            </div>
+            <div class="cluster-visual-flex-row">
+                <div class="cluster-image-frame">
+                    <img src="cluster/cluster_1_map.svg" alt="Cluster Image" id="cluster-image" class="cluster-image" />
+                </div>
+                <div class="cluster-barplot-frame">
+                    <img src="cluster_bar/cluster_bar_plot_cluster1.svg" alt="Cluster Bar Plot" id="cluster-barplot-img" class="cluster-barplot-img" />
+                </div>
+                <div class="gsv-pair-row">
+                    <div class="gsv-square"><img src="GSVimages/1a.jpg" id="gsv-img-a" class="gsv-square-img" alt="GSV 1a" /></div>
+                    <div class="gsv-square"><img src="GSVimages/1b.jpg" id="gsv-img-b" class="gsv-square-img" alt="GSV 1b" /></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 显示屏幕尺寸
+        function updateScreenSize() {
+            const indicator = document.getElementById('screen-size');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            indicator.textContent = `${width}px × ${height}px`;
+        }
+        
+        window.addEventListener('resize', updateScreenSize);
+        updateScreenSize();
+        
+        // 激活cluster section的动画
+        document.querySelector('.cluster-visual-section').classList.add('active');
+    </script>
+</body>
+</html> 

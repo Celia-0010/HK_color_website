@@ -1185,13 +1185,55 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 0px !important;
+  gap: 2.5vw;  /* 从4vw调小到2.5vw */
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 2s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+  padding: 0 2vw;
+}
+
+/* 响应式间距调整 */
+@media (max-width: 1200px) {
+  .cluster-visual-flex-row {
+    gap: 4vw;  /* 从6vw调小到4vw */
+    padding: 0 3vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .cluster-visual-flex-row {
+    gap: 5vw;  /* 从8vw调小到5vw */
+    padding: 0 4vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .cluster-visual-flex-row {
+    gap: 6vw;  /* 从10vw调小到6vw */
+    padding: 0 5vw;
+  }
+}
+
+/* 在极窄屏幕下改为垂直布局 */
+@media (max-width: 400px) {
+  .cluster-visual-flex-row {
+    flex-direction: column;
+    gap: 3rem;  /* 从4rem调小到3rem */
+    padding: 0 2vw;
+  }
+  
+  .cluster-barplot-frame {
+    width: 80% !important;
+    min-width: 200px;
+  }
+  
+  .cluster-image-frame {
+    width: 80% !important;
+    min-width: 200px;
+  }
 }
 
 .cluster-visual-section.active .cluster-visual-flex-row {
@@ -1211,6 +1253,30 @@ body {
   margin-right: auto;
   position: relative;
   z-index: 10;
+  flex-wrap: wrap;
+  padding: 0 2vw;
+}
+
+/* 响应式按钮布局 */
+@media (max-width: 768px) {
+  .cluster-barplot-btn-row {
+    gap: 4vw;
+    padding: 0 3vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .cluster-barplot-btn-row {
+    gap: 3vw;
+    padding: 0 4vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .cluster-barplot-btn-row {
+    gap: 2vw;
+    padding: 0 5vw;
+  }
 }
 
 .cluster-barplot-frame {
@@ -1222,6 +1288,29 @@ body {
   justify-content: center;
   margin-left: 0px !important;
   margin-right: 0px !important;
+  min-width: 200px;
+}
+
+/* 响应式宽度调整 */
+@media (max-width: 1200px) {
+  .cluster-barplot-frame {
+    width: 35%;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cluster-barplot-frame {
+    width: 40%;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cluster-barplot-frame {
+    width: 45%;
+    min-width: 140px;
+  }
 }
 .cluster-barplot-img {
   width: 90%;
@@ -1231,7 +1320,26 @@ body {
   box-shadow: none;
   border: none;
   display: block;
-  margin-left: -30px !important;
+  margin-left: 0px !important;
+}
+
+/* 响应式margin调整 */
+@media (max-width: 1200px) {
+  .cluster-barplot-img {
+    margin-left: 0px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cluster-barplot-img {
+    margin-left: 0px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cluster-barplot-img {
+    margin-left: 0px !important;
+  }
 }
 .cluster-image-frame {
   width: 50% !important;
@@ -1240,6 +1348,29 @@ body {
   aspect-ratio: 1.44;
   margin-right: 0px !important;
   margin-top: -50px !important;
+  min-width: 300px;
+}
+
+/* 响应式宽度调整 */
+@media (max-width: 1200px) {
+  .cluster-image-frame {
+    width: 45% !important;
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cluster-image-frame {
+    width: 40% !important;
+    min-width: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cluster-image-frame {
+    width: 35% !important;
+    min-width: 240px;
+  }
 } 
 
 .gsv-images-row {
@@ -1268,11 +1399,16 @@ body {
 
 .gsv-pair-row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  gap: 0px;
-  margin-top: 24px;
+  align-items: center;
+  gap: 1.5vw;
+  margin-top: 2vw;
+  margin: 0;
+  position: relative;
+  z-index: 3;
+  left: 0px;
+  min-width: 120px;
 }
 .gsv-square {
   width: 8vw;
@@ -1284,8 +1420,8 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-left: -50px !important;
-  border-radius: 10px;
+  margin-left: -3vw !important;
+  border-radius: 1.2vw;
 }
 .gsv-square-img {
   width: 100%;
@@ -1297,16 +1433,7 @@ body {
 .cluster-image-frame {
   position: relative;
 }
-.gsv-pair-row {
-  position: static;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 0 0 0 0;
-  height: 100%;
-} 
+/* 移除重复的GSV样式定义 */ 
 
 .cluster-barplot-frame {
   margin-top: 120px;
@@ -1321,12 +1448,60 @@ body {
   gap: 0;
   position: relative;
 }
-.gsv-pair-row {
-  margin: 0;
-  position: relative;
-  z-index: 3;
-  left: 0px;
-  margin-top: -30px;
+/* 移除重复的GSV样式定义，使用上面的统一定义 */
+
+/* 响应式GSV图片调整 */
+@media (max-width: 1200px) {
+  .gsv-pair-row {
+    min-width: 100px;
+    gap: 2vw;
+    flex-direction: column;
+  }
+  
+  .gsv-square {
+    border-radius: 1.5vw;
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .gsv-pair-row {
+    min-width: 80px;
+    gap: 2.5vw;
+    flex-direction: column;
+  }
+  
+  .gsv-square {
+    border-radius: 2vw;
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .gsv-pair-row {
+    min-width: 60px;
+    gap: 3vw;
+    flex-direction: column;
+  }
+  
+  .gsv-square {
+    border-radius: 2.5vw;
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .gsv-pair-row {
+    min-width: 120px;
+    margin-top: 4vw;
+    gap: 4vw;
+    flex-direction: column;
+  }
+  
+  .gsv-square {
+    border-radius: 3vw;
+    margin-left: 0 !important;
+  }
 }
 .cluster-barplot-frame {
   margin-left: 0px;
