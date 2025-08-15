@@ -1,9 +1,0 @@
-// vercel.json
-{
-  "middleware": [
-    {
-      "source": "/(.*)",
-      "destination": "/middleware.js"
-    }
-  ]
-}
