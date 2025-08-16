@@ -1,7 +1,7 @@
 export async function onRequest(context) {
   const { request, next } = context;
   const auth = request.headers.get('Authorization');
-  const password = '98591013';  // Set your password here
+  const [username, password] = ['lixiaoyu', '98591013'];
 
   if (!auth) {
     return new Response('Authentication required', {
@@ -23,8 +23,10 @@ export async function onRequest(context) {
   }
 
   const decoded = atob(encoded);
-  if (decoded !== password) {
-    return new Response('Invalid password', {
+  const [inputUsername, inputPassword] = decoded.split(':');
+
+  if (inputUsername !== username || inputPassword !== password) {
+    return new Response('Invalid credentials', {
       status: 401,
       headers: {
         'WWW-Authenticate': 'Basic realm="Secure Area"',
