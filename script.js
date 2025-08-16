@@ -140,6 +140,15 @@ function initScrollAnimations() {
                         entry.target.style.opacity = '1';
                         entry.target.style.transform = 'translateY(0)';
                     }, delay);
+                } 
+                // 特殊处理调色板的逐行动画
+                else if (entry.target.dataset.animate && entry.target.dataset.animate.startsWith('palette-')) {
+                    const paletteNum = parseInt(entry.target.dataset.animate.split('-')[1]);
+                    const delay = (paletteNum - 1) * 100; // 每100ms一个调色板
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, delay);
                 } else {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
@@ -148,8 +157,8 @@ function initScrollAnimations() {
         });
     }, observerOptions);
 
-    // 观察需要动画的元素
-    const animatedElements = document.querySelectorAll('[data-animate]');
+    // 观察需要动画的元素，但排除about-line元素
+    const animatedElements = document.querySelectorAll('[data-animate]:not([data-animate^="about-line-"])');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -277,29 +286,54 @@ function typeWriterEffect(element, text, speed = 35, callback) {
 
 // 逐行显示 about section
 function showAboutLinesSequentially() {
-    const lines = document.querySelectorAll('[data-animate="about-line"]');
+    const lines = document.querySelectorAll('[data-animate^="about-line-"]');
+    if (!lines.length) return;
+    
+    // 确保所有元素初始状态正确
+    lines.forEach(line => {
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(30px)';
+        line.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    });
+    
+    // 按顺序排序
+    const sortedLines = Array.from(lines).sort((a, b) => {
+        const aNum = parseInt(a.dataset.animate.split('-')[2]);
+        const bNum = parseInt(b.dataset.animate.split('-')[2]);
+        return aNum - bNum;
+    });
+    
     let i = 0;
     function showNext() {
-        if (i < lines.length) {
-            lines[i].style.opacity = '1';
-            lines[i].style.transform = 'translateY(0)';
+        if (i < sortedLines.length) {
+            sortedLines[i].style.opacity = '1';
+            sortedLines[i].style.transform = 'translateY(0)';
             i++;
-            setTimeout(showNext, 700); // 每行间隔，可调整
+            setTimeout(showNext, 800); // 每段间隔800ms
         }
     }
-    showNext();
+    
+    // 延迟0.3秒开始显示第一段
+    setTimeout(showNext, 300);
 }
 
 // 第二个 section 介绍内容随滚动逐行淡入
 function showAboutLinesOnScroll() {
-    const lines = document.querySelectorAll('[data-animate="about-line"]');
+    const lines = document.querySelectorAll('[data-animate^="about-line-"]');
     if (!lines.length) return;
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                // 获取段落编号
+                const lineNum = entry.target.dataset.animate.split('-')[2];
+                const delay = (parseInt(lineNum) - 1) * 800; // 每段延迟800ms
+                
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, delay);
+                
                 obs.unobserve(entry.target);
             }
         });
@@ -616,6 +650,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('❌ Weather switcher initialization failed:', e);
     }
     
+
+    
     console.log('✅ All features initialized successfully');
     
     // 启动打字机动画，动画结束后设置 hasTitleAnimated
@@ -637,8 +673,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 逐行显示 about section
-    showAboutLinesSequentially();
-    showAboutLinesOnScroll();
+    setTimeout(() => {
+        showAboutLinesSequentially();
+    }, 200);
 });
 
 // 性能优化：节流函数
@@ -664,6 +701,9 @@ window.addEventListener('scroll', throttle(() => {
 window.addEventListener('resize', throttle(() => {
     onWindowResize();
 }, 100));
+
+
+
 
 
 
