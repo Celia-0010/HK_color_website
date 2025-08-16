@@ -1517,37 +1517,6 @@ return function(){for(var n=0,e=0;e<t;++e)n+=Math.random();return n}},um=functio
             .attr("x", 6 + sankey.nodeWidth())
             .attr("text-anchor", "start");
 
-        // Apply custom styling for color nodes (right side) - integrated directly
-        var semCount = 21; // Number of semantic nodes (left and middle columns)
-        
-        // Style semantic nodes (left and middle columns)
-        svg.selectAll(".node")
-           .filter(function(d, i) { return i < semCount; })
-           .select("rect")
-           .style("stroke", "black")
-           .style("stroke-width", "1px");
-        
-        // Style color nodes (right column) - no border
-        svg.selectAll(".node")
-           .filter(function(d, i) { return i >= semCount; })
-           .select("rect")
-           .style("stroke", "none")
-           .style("stroke-width", "0px");
-        
-        // Style text for color nodes (right column) - colored text matching node color
-        svg.selectAll(".node text")
-           .each(function(d, i) {
-             var el = d3.select(this);
-             if (i >= semCount) {
-               el.style("font-weight", "bold")
-                 .style("font-size", "14px")
-                 .style("fill", d.name); // Use the hex color as text color
-             } else {
-               el.style("font-weight", "lighter")
-                 .style("font-size", "14px");
-             }
-           });
-
 
 
 
