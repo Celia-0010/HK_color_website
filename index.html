@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Automated Urban Color Palette Generation Using Google Street View Imagery and Vision-Language Models</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -14,7 +14,7 @@
                 extend: {
                     fontFamily: {
                         'inter': ['Inter', 'sans-serif'],
-                        'outfit': ['Outfit', 'sans-serif'],
+                        'roboto': ['Roboto', 'sans-serif'],
                         'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
                         'georgia': ['serif']
                     },
@@ -301,7 +301,7 @@
       }
     </style>
 </head>
-<body class="bg-white text-gray-900 font-outfit m-0 p-0">
+<body class="bg-white text-gray-900 font-roboto m-0 p-0">
 
 
     <!-- Hero & About Section (Merged) -->
@@ -315,7 +315,7 @@
                     <h1 class="font-jakarta text-4xl sm:text-5xl lg:text-6xl font-normal text-black mb-8 -mt-8" style="line-height: 1.3;">
                         <span class="font-semibold">Automated <br>Urban Color Palette Generation</span>
                     </h1>
-                    <p class="font-outfit text-2xl sm:text-3xl lg:text-4xl text-gray-700 max-w-3xl lg:max-w-none mx-auto lg:mx-0 leading-relaxed">
+                    <p class="font-roboto text-2xl sm:text-3xl lg:text-4xl text-gray-700 max-w-3xl lg:max-w-none mx-auto lg:mx-0 leading-relaxed">
                         Using Google Street View Imagery <br>and Vision-Language Models
                     </p>
                 </div>
@@ -351,13 +351,13 @@
     </section>
 
     <!-- 22 Colors Palette Section -->
-    <section id="colors" class="py-16 sm:py-24 bg-white section-modern">
+    <section id="colors" class="py-20 sm:py-32 bg-white section-modern">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <h2 class="font-jakarta text-2xl sm:text-3xl lg:text-4xl font-normal text-black mb-8 leading-tight">
                     Representative Colors of Hong Kong
                 </h2>
-                <p class="text-sm sm:text-base text-gray-700 max-w-4xl mx-auto leading-relaxed font-outfit">
+                <p class="text-sm sm:text-base text-gray-700 max-w-4xl mx-auto leading-relaxed font-roboto">
                     Combining <span class="font-bold text-black">Incremental K-means clustering</span> in the RGB color space <br class="hidden sm:inline">and <span class="font-bold text-black">Color Difference Formula</span> in the CIELab color space, <br class="hidden sm:inline">we extract 22 representative colors of Hong Kong from all targeted pixels.
                 </p>
             </div>
@@ -376,7 +376,7 @@
                     <h2 class="font-jakarta text-lg sm:text-xl lg:text-2xl font-normal text-black mb-8 leading-tight">
                         Urban Color <br>Affected by Weather
                     </h2>
-                    <div class="text-xs sm:text-sm text-gray-700 leading-relaxed mb-8 font-outfit">
+                    <div class="text-sm sm:text-base text-gray-700 leading-relaxed mb-8 font-roboto">
                         <strong class="text-black"><a href="https://github.com/openai/CLIP" target="_blank" rel="noopener noreferrer" class="text-black underline decoration-2 underline-offset-2">CLIP</a></strong> is used to classify GSV images according to weather conditions.
                         <br><br>
                         On cloudy days, muted-neutral and dark-earthy colors are more dominant, due to diffuse lighting.
@@ -384,8 +384,8 @@
                         On sunny days, soft-cool and light-vibrant colors are more prominent, enhanced by direct sunlight.
                     </div>
                     <div class="flex space-x-8">
-                        <button class="weather-btn active text-base font-outfit font-medium text-gray-600 hover:text-black transition-colors relative" data-weather="sunny" data-percentage="26%">Sunny</button>
-                        <button class="weather-btn text-base font-outfit font-medium text-gray-600 hover:text-black transition-colors relative" data-weather="cloudy" data-percentage="74%">Cloudy</button>
+                        <button class="weather-btn active text-base font-roboto font-medium text-gray-600 hover:text-black transition-colors relative" data-weather="sunny" data-percentage="26%">Sunny</button>
+                        <button class="weather-btn text-base font-roboto font-medium text-gray-600 hover:text-black transition-colors relative" data-weather="cloudy" data-percentage="74%">Cloudy</button>
                     </div>
                 </div>
                 <div class="lg:col-span-3">
@@ -398,20 +398,19 @@
     </section>
 
     <!-- Sankey Visualization Section -->
-    <section class="py-16 sm:py-24 bg-white section-modern">
+    <section class="py-20 sm:py-30 bg-white section-modern">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-4 gap-2 lg:gap-4 items-start">
                 <div class="lg:col-span-1 pt-20">
                     <h2 class="font-jakarta text-lg sm:text-xl lg:text-2xl font-normal text-black mb-8 leading-tight">
                         Urban Color <br>Shaped by Semantics
                     </h2>
-                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed mb-2 font-outfit">
+                    <p class="text-sm sm:text-base text-gray-700 leading-relaxed mb-2 font-roboto">
                         <strong class="text-black">
                             <a href="https://github.com/IDEA-Research/Grounded-Segment-Anything" target="_blank" rel="noopener noreferrer" class="text-black underline decoration-2 underline-offset-2">Grounded SAM</a>
-                        </strong> is used to segment GSV images into 18 semantic classes.<br>
-                        Each pixel of GSV images is assigned a semantic label, representing "what it is", and a color label, representing "what it looks like". This enables us to identify colors of specific semantics, and determine which semantics contribute to the presence of a color.
+                        </strong> is used to segment GSV images into 18 semantic classes. Each pixel is assigned a semantic label, representing "what it is", and a color label, representing "what it looks like". This enables us to identify colors of specific semantics, as well as determine which semantics contribute to the presence of a color.
                     </p>
-                    <p class="font-outfit text-sm font-semibold text-black"><strong>Hover or drag to explore →</strong></p>
+                    <p class="font-roboto text-base sm:text-lg font-semibold text-black mt-10"><strong>Hover or drag to explore →</strong></p>
                 </div>
                 <div class="lg:col-span-3">
                     <div class="aspect-[1.3/1] w-full overflow-hidden">
@@ -427,7 +426,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-4 gap-2 lg:gap-4 items-center">
                 <div class="lg:col-span-1 -mt-4">
-                    <div class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit">
+                    <div class="text-sm sm:text-base text-gray-700 leading-relaxed font-roboto">
                         <p><strong class="text-black">Artificial backgrounds:</strong> low-saturation browns and greys, reflecting differences in material, age, or lighting exposure.</p>
                         <p><strong class="text-black">Natural backgrounds:</strong> light blue or nearly white colors intrinsically from the sky, and green tones intrinsically from vegetation and terrain.</p>
                         <p><strong class="text-black">Static decorations:</strong> greater color diversity with warm accent colors such as reds, oranges, and yellows, intended to attract attentions.</p>
@@ -457,15 +456,15 @@
                         <!-- Column 1 -->
                         <div class="grid grid-cols-3 gap-0 mb-0">
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-1">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Central and Western</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Central and Western</h3>
                                 <img src="18palette/Central and Western District_palette.svg" alt="Central and Western District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-2">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Yau Tsim Mong</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Yau Tsim Mong</h3>
                                 <img src="18palette/Yau Tsim Mong District_palette.svg" alt="Yau Tsim Mong District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-3">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">North</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">North</h3>
                                 <img src="18palette/North District_palette.svg" alt="North District Palette" class="w-full h-auto district-palette-img">
                             </div>
                         </div>
@@ -473,15 +472,15 @@
                         <!-- Column 2 -->
                         <div class="grid grid-cols-3 gap-0 mb-0">
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-4">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Wan Chai</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Wan Chai</h3>
                                 <img src="18palette/Wan Chai District_palette.svg" alt="Wan Chai District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-5">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Sham Shui Po</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Sham Shui Po</h3>
                                 <img src="18palette/Sham Shui Po District_palette.svg" alt="Sham Shui Po District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-6">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Yuen Long</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Yuen Long</h3>
                                 <img src="18palette/Yuen Long District_palette.svg" alt="Yuen Long District Palette" class="w-full h-auto district-palette-img">
                             </div>
                         </div>
@@ -489,15 +488,15 @@
                         <!-- Column 3 -->
                         <div class="grid grid-cols-3 gap-0 mb-0">
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-7">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Eastern</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Eastern</h3>
                                 <img src="18palette/Eastern District_palette.svg" alt="Eastern District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-8">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Kowloon City</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Kowloon City</h3>
                                 <img src="18palette/Kowloon City District_palette.svg" alt="Kowloon City District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-9">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Tsuen Wan</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Tsuen Wan</h3>
                                 <img src="18palette/Tsuen Wan District_palette.svg" alt="Tsuen Wan District Palette" class="w-full h-auto district-palette-img">
                             </div>
                         </div>
@@ -505,15 +504,15 @@
                         <!-- Column 4 -->
                         <div class="grid grid-cols-3 gap-0 mb-0">
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-10">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Southern</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Southern</h3>
                                 <img src="18palette/Southern District_palette.svg" alt="Southern District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-11">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Kwun Tong</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Kwun Tong</h3>
                                 <img src="18palette/Kwun Tong District_palette.svg" alt="Kwun Tong District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-12">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Tuen Mun</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Tuen Mun</h3>
                                 <img src="18palette/Tuen Mun District_palette.svg" alt="Tuen Mun District Palette" class="w-full h-auto district-palette-img">
                             </div>
                         </div>
@@ -521,15 +520,15 @@
                         <!-- Column 5 -->
                         <div class="grid grid-cols-3 gap-0 mb-0">
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-13">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Tai Po</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Tai Po</h3>
                                 <img src="18palette/Tai Po District_palette.svg" alt="Tai Po District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-14">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Wong Tai Sin</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Wong Tai Sin</h3>
                                 <img src="18palette/Wong Tai Sin District_palette.svg" alt="Wong Tai Sin District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-15">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Sha Tin</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Sha Tin</h3>
                                 <img src="18palette/Sha Tin District_palette.svg" alt="Sha Tin District Palette" class="w-full h-auto district-palette-img">
                             </div>
                         </div>
@@ -537,15 +536,15 @@
                         <!-- Column 6 -->
                         <div class="grid grid-cols-3 gap-0 mb-0">
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-16">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Kwai Tsing</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Kwai Tsing</h3>
                                 <img src="18palette/Kwai Tsing District_palette.svg" alt="Kwai Tsing District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-17">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Sai Kung</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Sai Kung</h3>
                                 <img src="18palette/Sai Kung District_palette.svg" alt="Sai Kung District Palette" class="w-full h-auto district-palette-img">
                             </div>
                             <div class="text-center opacity-0 transform translate-y-8 transition-all duration-700" data-animate="palette-18">
-                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-outfit mb-0">Islands</h3>
+                                <h3 class="text-xs sm:text-sm text-gray-700 leading-relaxed font-roboto mb-0">Islands</h3>
                                 <img src="18palette/Islands District_palette.svg" alt="Islands District Palette" class="w-full h-auto district-palette-img">
                             </div>
                         </div>
@@ -562,19 +561,19 @@
                 <h2 class="font-jakarta text-2xl sm:text-3xl lg:text-4xl font-normal text-black mb-8 leading-tight">
                     Spatial Heterogeneity of Urban Color
                 </h2>
-                <p class="text-sm sm:text-base text-gray-700 max-w-4xl mx-auto leading-relaxed font-outfit">
+                <p class="text-sm sm:text-base text-gray-700 max-w-4xl mx-auto leading-relaxed font-roboto">
                     We perform clustering analysis based on the pixel ratios of 22 colors across all images. <br class="hidden sm:inline">Six dominant clusters are identified, demonstrating clear statistical and spatial patterns.
                 </p>
             </div>
             
             <!-- Cluster Buttons -->
             <div class="flex flex-wrap justify-center gap-2 sm:gap-4 lg:gap-6 mb-6">
-                <button class="cluster-btn active px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-outfit font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_1_map.svg" data-percentage="31.10%">I</button>
-                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-outfit font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_2_map.svg" data-percentage="25.81%">II</button>
-                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-outfit font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_3_map.svg" data-percentage="14.93%">III</button>
-                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-outfit font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_4_map.svg" data-percentage="12.94%">IV</button>
-                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-outfit font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_5_map.svg" data-percentage="10.29%">V</button>
-                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-outfit font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_6_map.svg" data-percentage="4.92%">VI</button>
+                <button class="cluster-btn active px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-roboto font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_1_map.svg" data-percentage="31.10%">I</button>
+                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-roboto font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_2_map.svg" data-percentage="25.81%">II</button>
+                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-roboto font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_3_map.svg" data-percentage="14.93%">III</button>
+                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-roboto font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_4_map.svg" data-percentage="12.94%">IV</button>
+                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-roboto font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_5_map.svg" data-percentage="10.29%">V</button>
+                <button class="cluster-btn px-2 sm:px-4 py-0.5 sm:py-1 text-lg sm:text-xl font-roboto font-medium text-gray-600 hover:text-black transition-colors relative" data-img="cluster_6_map.svg" data-percentage="4.92%">VI</button>
             </div>
             
             <!-- Cluster Visual Content -->
@@ -616,25 +615,25 @@
                 <h2 class="font-jakarta text-2xl sm:text-3xl lg:text-4xl font-normal text-black mb-8 leading-tight">
                     Predicting Housing Prices Using Urban Color Information
                 </h2>
-                <p class="text-sm sm:text-base text-gray-700 max-w-4xl mx-auto leading-relaxed font-outfit">
+                <p class="text-sm sm:text-base text-gray-700 max-w-4xl mx-auto leading-relaxed font-roboto">
                     To assess the effectiveness of urban color features under controlled lighting conditions, <br class="hidden sm:inline">we conduct a housing price prediction task using only cloudy-day images with random forest regression.
                 </p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
                 <div class="text-center p-8 sm:p-10 modern-card">
-                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-outfit max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-1">
-                        Model performance improves as buffer size increases from 200m to 1000m, with <span class="text-2xl font-semibold text-black font-outfit">800m</span> being optimal to capture the relationship.
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-roboto max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-1">
+                        Model performance improves as buffer size increases from 200m to 1000m, with <span class="text-2xl font-semibold text-black font-roboto">800m</span> being optimal to capture the relationship.
                     </p>
                 </div>
                 <div class="text-center p-8 sm:p-10 modern-card">
-                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-outfit max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-2">
-                        The model with color features alone achieves an R² of <span class="text-2xl font-semibold text-black font-outfit">0.5553</span>, outperforming the 0.5059 with semantic features alone.
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-roboto max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-2">
+                        The model with color features alone achieves an R² of <span class="text-2xl font-semibold text-black font-roboto">0.5553</span>, outperforming the 0.5059 with semantic features alone.
                     </p>
                 </div>
                 <div class="text-center p-8 sm:p-10 modern-card">
-                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-outfit max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-3">
-                        Adding color features increases the R² of the base model with housing location and accessibility from 0.6085 to <span class="text-2xl font-semibold text-black font-outfit">0.6253</span>.
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed prediction-text font-roboto max-w-sm mx-auto opacity-0 transform translate-y-8 transition-all duration-700" data-animate="prediction-3">
+                        Adding color features increases the R² of the base model with housing location and accessibility from 0.6085 to <span class="text-2xl font-semibold text-black font-roboto">0.6253</span>.
                     </p>
                 </div>
             </div>
@@ -645,8 +644,8 @@
         <div class="relative z-10 w-full text-center">
             <div class="space-y-12">
                 <div class="mt-12 space-y-6">
-                    <p class="font-outfit text-sm text-gray-600 leading-relaxed">Student: Li Xiaoyu | Supervisor: Prof. Zhou Yulun</p>
-                    <p class="font-outfit text-sm text-gray-600 leading-relaxed">2024-2025 MUA | The University of Hong Kong</p>
+                    <p class="font-roboto text-sm text-gray-600 leading-relaxed">Student: Li Xiaoyu | Supervisor: Prof. Zhou Yulun</p>
+                    <p class="font-roboto text-sm text-gray-600 leading-relaxed">2024-2025 MUA | The University of Hong Kong</p>
                 </div>
             </div>
         </div>
