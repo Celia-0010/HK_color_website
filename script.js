@@ -752,6 +752,10 @@ function initSankeyChart() {
         .sankeyNetwork .link:hover {
             opacity: 0.6;
         }
+        .sankeyNetwork text {
+            font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+            font-size: 14px !important;
+        }
     `;
     document.head.appendChild(style);
     
