@@ -367,20 +367,50 @@ function generateColorPalette() {
         const container = document.querySelector('#color-container');
         if (!container) return;
         
-        const containerWidth = container.offsetWidth;
-        const gap = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 3 : 5; // 响应式间距
-        const totalGaps = 21; // 22个颜色块之间有21个间距
-        const availableWidth = containerWidth - (totalGaps * gap);
-        const colorSize = Math.max(20, Math.min(40, Math.floor(availableWidth / 22))); // 最小20px，最大40px
+        const isMobile = window.innerWidth < 640;
+        const gap = isMobile ? 1 : window.innerWidth < 1024 ? 3 : 5; // 响应式间距
         
-        const colorItems = container.querySelectorAll('.color-palette-item');
-        colorItems.forEach(item => {
-            item.style.width = colorSize + 'px';
-            item.style.height = colorSize + 'px';
-        });
+        if (isMobile) {
+            // 手机端：自动换行，每行显示11个颜色块
+            container.style.flexWrap = 'wrap';
+            container.style.justifyContent = 'center';
+            
+            const containerWidth = container.offsetWidth;
+            const colorsPerRow = 11; // 每行11个颜色块
+            const gapsPerRow = colorsPerRow - 1; // 每行10个间距
+            const availableWidth = containerWidth - (gapsPerRow * gap);
+            const colorSize = Math.max(20, Math.min(35, Math.floor(availableWidth / colorsPerRow))); // 最小20px，最大35px
+            
+            const colorItems = container.querySelectorAll('.color-palette-item');
+            colorItems.forEach(item => {
+                item.style.width = colorSize + 'px';
+                item.style.height = colorSize + 'px';
+            });
+            
+            // 更新容器高度（两行）
+            container.style.minHeight = (colorSize * 2 + gap + 20) + 'px';
+        } else {
+            // 桌面端：一行显示所有22个颜色块
+            container.style.flexWrap = 'nowrap';
+            container.style.justifyContent = 'center';
+            
+            const containerWidth = container.offsetWidth;
+            const totalGaps = 21; // 22个颜色块之间有21个间距
+            const availableWidth = containerWidth - (totalGaps * gap);
+            const colorSize = Math.max(20, Math.min(40, Math.floor(availableWidth / 22))); // 最小20px，最大40px
+            
+            const colorItems = container.querySelectorAll('.color-palette-item');
+            colorItems.forEach(item => {
+                item.style.width = colorSize + 'px';
+                item.style.height = colorSize + 'px';
+            });
+            
+            // 更新容器高度（一行）
+            container.style.minHeight = (colorSize + 10) + 'px';
+        }
         
-        // 更新容器高度
-        container.style.minHeight = (colorSize + 10) + 'px';
+        // 更新容器间距
+        container.style.gap = gap + 'px';
     }
 
     for (let i = 1; i <= 22; i++) {
