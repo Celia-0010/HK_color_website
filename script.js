@@ -360,8 +360,9 @@ function initContactForm() {
 
 // 生成22种颜色
 function generateColorPalette() {
-    const colorContainer = document.querySelector('#colors .flex.flex-wrap');
-    if (!colorContainer) return;
+    const colorRow1 = document.querySelector('#color-row-1');
+    const colorRow2 = document.querySelector('#color-row-2');
+    if (!colorRow1 || !colorRow2) return;
 
     for (let i = 1; i <= 22; i++) {
         const colorItem = document.createElement('div');
@@ -373,7 +374,13 @@ function generateColorPalette() {
         img.className = 'w-full h-full object-cover opacity-0 transform translate-y-8 transition-all duration-700';
         
         colorItem.appendChild(img);
-        colorContainer.appendChild(colorItem);
+        
+        // 前11个颜色放在第一行，后11个颜色放在第二行
+        if (i <= 11) {
+            colorRow1.appendChild(colorItem);
+        } else {
+            colorRow2.appendChild(colorItem);
+        }
     }
     
     // 使用Intersection Observer触发颜色动画
@@ -382,7 +389,7 @@ function generateColorPalette() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const colorImages = colorContainer.querySelectorAll('img');
+                    const colorImages = document.querySelectorAll('#color-row-1 img, #color-row-2 img');
                     colorImages.forEach((img, index) => {
                         setTimeout(() => {
                             img.style.opacity = '1';
@@ -650,6 +657,13 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('❌ Weather switcher initialization failed:', e);
     }
     
+    try {
+        initSankeyChart();
+        console.log('✅ Sankey chart initialized');
+    } catch (e) {
+        console.error('❌ Sankey chart initialization failed:', e);
+    }
+    
 
     
     console.log('✅ All features initialized successfully');
@@ -701,6 +715,73 @@ window.addEventListener('scroll', throttle(() => {
 window.addEventListener('resize', throttle(() => {
     onWindowResize();
 }, 100));
+
+// Sankey图表初始化函数
+function initSankeyChart() {
+    // 检查是否在Sankey图表部分
+    const sankeySection = document.querySelector('#sankey-container');
+    if (!sankeySection) return;
+    
+    // 创建Sankey图表容器
+    const container = document.getElementById('htmlwidget-1aaee5e322e8f8427ac7');
+    if (!container) return;
+    
+    // 添加Sankey图表的样式
+    const style = document.createElement('style');
+    style.textContent = `
+        .sankeyNetwork svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: none !important;
+            max-height: none !important;
+        }
+        .html-widget {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .sankeyNetwork .node {
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .sankeyNetwork .node:hover {
+            opacity: 0.8;
+        }
+        .sankeyNetwork .link {
+            transition: opacity 0.3s ease;
+        }
+        .sankeyNetwork .link:hover {
+            opacity: 0.6;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // 这里可以添加Sankey图表的具体实现
+    // 由于Sankey图表代码很长，建议保持原有的sankey_plot_all.html文件
+    // 并通过动态加载的方式引入
+    loadSankeyChart();
+}
+
+// 动态加载Sankey图表
+function loadSankeyChart() {
+    // 创建一个iframe来加载Sankey图表，但这次是内联的
+    const container = document.getElementById('htmlwidget-1aaee5e322e8f8427ac7');
+    if (!container) return;
+    
+    // 清空容器
+    container.innerHTML = '';
+    
+    // 创建iframe
+    const iframe = document.createElement('iframe');
+    iframe.src = 'sankey_plot_all.html';
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = 'none';
+    iframe.style.overflow = 'hidden';
+    iframe.style.transform = 'scale(1.1)';
+    iframe.style.transformOrigin = 'center center';
+    
+    container.appendChild(iframe);
+}
 
 
 
