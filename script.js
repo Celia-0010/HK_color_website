@@ -368,7 +368,7 @@ function generateColorPalette() {
         if (!container) return;
         
         const containerWidth = container.offsetWidth;
-        const gap = window.innerWidth < 640 ? 2 : window.innerWidth < 1024 ? 4 : 6; // 响应式间距
+        const gap = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 3 : 5; // 响应式间距
         const totalGaps = 21; // 22个颜色块之间有21个间距
         const availableWidth = containerWidth - (totalGaps * gap);
         const colorSize = Math.max(20, Math.min(40, Math.floor(availableWidth / 22))); // 最小20px，最大40px
@@ -754,10 +754,12 @@ function initSankeyChart() {
             height: 100% !important;
             max-width: none !important;
             max-height: none !important;
+            overflow: visible !important;
         }
         .html-widget {
             width: 100% !important;
             height: 100% !important;
+            overflow: visible !important;
         }
         .sankeyNetwork .node {
             cursor: pointer;
@@ -775,6 +777,20 @@ function initSankeyChart() {
         .sankeyNetwork text {
             font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
             font-size: 14px !important;
+        }
+        @media (max-width: 768px) {
+            .sankeyNetwork svg {
+                overflow: visible !important;
+                min-width: 100% !important;
+            }
+            .html-widget {
+                overflow: visible !important;
+                min-width: 100% !important;
+            }
+            #sankey-container {
+                overflow: visible !important;
+                min-width: 100% !important;
+            }
         }
     `;
     document.head.appendChild(style);

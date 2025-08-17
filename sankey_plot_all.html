@@ -1602,10 +1602,25 @@ return function(){for(var n=0,e=0;e<t;++e)n+=Math.random();return n}},um=functio
         height: 100% !important;
         max-width: none !important;
         max-height: none !important;
+        overflow: visible !important;
     }
     .html-widget {
         width: 100% !important;
         height: 100% !important;
+        overflow: visible !important;
+    }
+    @media (max-width: 768px) {
+        svg {
+            overflow: visible !important;
+            min-width: 100% !important;
+        }
+        .html-widget {
+            overflow: visible !important;
+            min-width: 100% !important;
+        }
+        body {
+            overflow-x: auto !important;
+        }
     }
 </style>
 <div id="htmlwidget_container">
