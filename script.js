@@ -360,13 +360,33 @@ function initContactForm() {
 
 // 生成22种颜色
 function generateColorPalette() {
-    const colorRow1 = document.querySelector('#color-row-1');
-    const colorRow2 = document.querySelector('#color-row-2');
-    if (!colorRow1 || !colorRow2) return;
+    const colorContainer = document.querySelector('#color-container');
+    if (!colorContainer) return;
+
+    function updateColorSize() {
+        const container = document.querySelector('#color-container');
+        if (!container) return;
+        
+        const containerWidth = container.offsetWidth;
+        const gap = window.innerWidth < 640 ? 2 : window.innerWidth < 1024 ? 4 : 6; // 响应式间距
+        const totalGaps = 21; // 22个颜色块之间有21个间距
+        const availableWidth = containerWidth - (totalGaps * gap);
+        const colorSize = Math.max(20, Math.min(40, Math.floor(availableWidth / 22))); // 最小20px，最大40px
+        
+        const colorItems = container.querySelectorAll('.color-palette-item');
+        colorItems.forEach(item => {
+            item.style.width = colorSize + 'px';
+            item.style.height = colorSize + 'px';
+        });
+        
+        // 更新容器高度
+        container.style.minHeight = (colorSize + 10) + 'px';
+    }
 
     for (let i = 1; i <= 22; i++) {
         const colorItem = document.createElement('div');
-        colorItem.className = 'w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 transition-transform duration-200 hover:scale-110 cursor-pointer color-palette-item';
+        colorItem.className = 'transition-transform duration-200 hover:scale-110 cursor-pointer color-palette-item';
+        colorItem.style.cssText = 'flex-shrink: 0;';
         
         const img = document.createElement('img');
         img.src = `22colors/${i}.svg`;
@@ -374,14 +394,14 @@ function generateColorPalette() {
         img.className = 'w-full h-full object-cover opacity-0 transform translate-y-8 transition-all duration-700';
         
         colorItem.appendChild(img);
-        
-        // 前11个颜色放在第一行，后11个颜色放在第二行
-        if (i <= 11) {
-            colorRow1.appendChild(colorItem);
-        } else {
-            colorRow2.appendChild(colorItem);
-        }
+        colorContainer.appendChild(colorItem);
     }
+    
+    // 初始化尺寸
+    updateColorSize();
+    
+    // 监听窗口大小变化
+    window.addEventListener('resize', updateColorSize);
     
     // 使用Intersection Observer触发颜色动画
     const colorsSection = document.querySelector('#colors');
@@ -389,7 +409,7 @@ function generateColorPalette() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const colorImages = document.querySelectorAll('#color-row-1 img, #color-row-2 img');
+                    const colorImages = colorContainer.querySelectorAll('img');
                     colorImages.forEach((img, index) => {
                         setTimeout(() => {
                             img.style.opacity = '1';
